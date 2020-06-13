@@ -32,6 +32,7 @@ class Header extends Component {
           isOpen={this.state.sidebarIsOpen}
           clickHandler={this.clickHeandler}
           keyPressHandler={this.keyPressHandler}
+          toggleHandler={this.toggleSidebar}
         />
       </HeaderWrapper>
     );

@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
         --clr-danger: #ef6837;
         --clr-info: #f4ac06;
         // Font-Family
-        /* --ff-sansSerif: 'Merriweather Sans', sans-serif; */
+        --ff-sansSerif: 'Merriweather Sans', sans-serif;
         // Font-size
         --fs: 56.25%;
         // Font-weights
@@ -25,13 +25,12 @@ const GlobalStyles = createGlobalStyle`
     }
 
     html {
-        /* font-family: var(--ff-sansSerif); */
+        font-family: var(--ff-sansSerif);
         font-size: var(--fs);
         font-weight: var(--fw-normal);
     }
 
     body {
-        font-family: 'Merriweather Sans';
         box-sizing: border-box;
         background-color: var(--clr-secondary);
         color: var(--clr-primary);
