@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import NavbarToggleBtn from '../../components/Navbar/NavbarToggle/NavbarToggleBtn';
+import Search from '../../components/Search/Search';
+import Dropdown from '../../components/Dropdown/Dropdown';
 
 const HeaderWrapper = styled.header`
   padding: ${({ sidebarIsOpen }) =>
@@ -34,6 +36,10 @@ class Header extends Component {
           keyPressHandler={this.keyPressHandler}
           toggleHandler={this.toggleSidebar}
         />
+        <div className="search-wrapper">
+          <Search />
+          <Dropdown defaultSelectedText="Popularity" />
+        </div>
       </HeaderWrapper>
     );
   }
