@@ -131,7 +131,7 @@ const DropdownContainer = styled.div`
   }
 `;
 
-const Dropdown = ({ defaultSelectedText }) => {
+const Dropdown = ({ defaultSelectedText, optionList }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedText, setSelectedText] = useState(defaultSelectedText);
 
@@ -189,30 +189,19 @@ const Dropdown = ({ defaultSelectedText }) => {
         aria-label="List of options"
         tabIndex="-1"
       >
-        <li
-          className="option-item"
-          data-name="Popularity"
-          role="option"
-          aria-selected
-        >
-          Popularity
-        </li>
-        <li
-          className="option-item"
-          data-name="AverageVote"
-          role="option"
-          aria-selected="false"
-        >
-          Average Vote
-        </li>
-        <li
-          className="option-item"
-          data-name="Title"
-          role="option"
-          aria-selected="false"
-        >
-          Title
-        </li>
+        {optionList.map((option) => {
+          return (
+            <li
+              className="option-item"
+              data-name={option.name}
+              role="option"
+              key={option.name}
+              aria-selected={selectedText === option.name ? true : false}
+            >
+              {option.name}
+            </li>
+          );
+        })}
       </ul>
     </DropdownContainer>
   );

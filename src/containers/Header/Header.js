@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import NavbarToggleBtn from '../../components/Navbar/NavbarToggle/NavbarToggleBtn';
 import Search from '../../components/Search/Search';
-import Dropdown from '../../components/Dropdown/Dropdown';
 
 const HeaderWrapper = styled.header`
   padding: ${({ sidebarIsOpen }) =>
-    sidebarIsOpen ? '1rem 15rem' : '1rem 2rem'};
+    sidebarIsOpen ? '1.5rem 1.5rem 1.5rem 15rem' : '1.5rem'};
   transition: 0.5s ease-in-out;
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
 `;
+
+const options = [
+  { name: 'Popularity', default: true },
+  { name: 'Average Vote', default: false },
+  { name: 'Title', default: false },
+];
 
 class Header extends Component {
   state = {
@@ -36,10 +44,7 @@ class Header extends Component {
           keyPressHandler={this.keyPressHandler}
           toggleHandler={this.toggleSidebar}
         />
-        <div className="search-wrapper">
-          <Search />
-          <Dropdown defaultSelectedText="Popularity" />
-        </div>
+        <Search />
       </HeaderWrapper>
     );
   }

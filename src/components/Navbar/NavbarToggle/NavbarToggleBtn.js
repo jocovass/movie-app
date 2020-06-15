@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  height: 5rem;
-  width: 5rem;
+  height: 4rem;
+  width: 4rem;
   border: 1px solid transparent;
   border-radius: 50%;
   display: flex;
@@ -27,8 +27,8 @@ const Hamburger = styled.div`
 
   .bar {
     display: block;
-    height: 3px;
-    border-radius: 3px;
+    height: 2px;
+    border-radius: 2px;
     width: 100%;
     background-color: var(--clr-primary);
   }
@@ -44,7 +44,7 @@ const Hamburger = styled.div`
 
   .second-bar {
     margin: 4px 0;
-    width: ${(props) => (props.isOpen ? '100%' : '60%')};
+    width: ${(props) => (props.isOpen ? '100%' : '70%')};
     transition: 0.4s width cubic-bezier(0.23, 0.69, 0.46, 1.67);
   }
 
