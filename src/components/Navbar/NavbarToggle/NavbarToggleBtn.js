@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   &:hover,
   &:focus,
   &:active {
-    border-color: var(--clr-primary);
+    border-color: var(--clr-info);
     outline: none;
   }
 `;

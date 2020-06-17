@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const SearchContainer = styled.div`
+  position: relative;
   align-self: center;
   overflow: hidden;
   cursor: pointer;
@@ -14,7 +15,7 @@ const SearchContainer = styled.div`
   border: 1px solid var(--clr-primary-light);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   transition: border 0.1s ease-in-out,
-    width 0.5s cubic-bezier(0.76, -0.31, 0.4, 1.12);
+    width 0.5s cubic-bezier(0.6, -0.62, 1, 1.42);
 
   &:hover {
     border-color: var(--clr-info);
@@ -39,6 +40,7 @@ const SearchContainer = styled.div`
     height: 3.5rem;
     color: var(--clr-primary-light);
     pointer-events: ${(props) => (props.isOpen ? 'auto' : 'none')};
+    display: block;
   }
 
   input {
@@ -47,7 +49,8 @@ const SearchContainer = styled.div`
     background-color: transparent;
     outline: none;
     border: none;
-    width: 100%;
+    width: ${(props) => (props.isOpen ? '100%' : '0%')};
+    transition: width 0.5s ease-in-out;
 
     &::placeholder {
       color: var(--clr-primary-light);
@@ -63,10 +66,10 @@ const Search = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
   const inputRef = useRef();
+  const formRef = useRef();
 
   useEffect(() => {
     document.addEventListener('mousedown', closeSearchBox);
-
     return () => document.removeEventListener('mousedown', closeSearchBox);
   }, []);
 
@@ -90,8 +93,10 @@ const Search = () => {
     }
   };
 
-  const closeSearchBox = () => {
-    setIsOpen(false);
+  const closeSearchBox = (e) => {
+    if (!formRef.current.contains(e.target)) {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -104,7 +109,7 @@ const Search = () => {
       aria-label="Toggler button"
       tabIndex="0"
     >
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} ref={formRef}>
         <input
           type="text"
           placeholder="search..."

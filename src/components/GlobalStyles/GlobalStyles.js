@@ -54,6 +54,10 @@ const GlobalStyles = createGlobalStyle`
         font-size: inherit;
         outline: none;
     }
+
+    #root {
+        overflow: hidden;
+    }
 `;
 
 export default GlobalStyles;

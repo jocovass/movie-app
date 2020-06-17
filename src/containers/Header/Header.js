@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import Navbar from '../../components/Navbar/Navbar';
 import NavbarToggleBtn from '../../components/Navbar/NavbarToggle/NavbarToggleBtn';
 import Search from '../../components/Search/Search';
 
 const HeaderWrapper = styled.header`
-  padding: ${({ sidebarIsOpen }) =>
-    sidebarIsOpen ? '1.5rem 1.5rem 1.5rem 15rem' : '1.5rem'};
+  margin-left: ${({ sidebarIsOpen }) => (sidebarIsOpen ? '21.5rem' : '0')};
+  /* width: 1000px; */
+  overflow: hidden;
+  min-width: 320px;
+  padding: 1.5rem;
   transition: 0.5s ease-in-out;
   display: flex;
   align-content: center;
@@ -38,6 +42,7 @@ class Header extends Component {
   render() {
     return (
       <HeaderWrapper sidebarIsOpen={this.state.sidebarIsOpen}>
+        <Navbar isOpen={this.state.sidebarIsOpen} />
         <NavbarToggleBtn
           isOpen={this.state.sidebarIsOpen}
           clickHandler={this.clickHeandler}
