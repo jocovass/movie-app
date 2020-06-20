@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   cursor: pointer;
   transition: 0.1s all ease-in-out;
+  z-index: 99;
 
   &:hover,
   &:focus,

@@ -15,7 +15,7 @@ const SearchContainer = styled.div`
   border: 1px solid var(--clr-primary-light);
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   transition: border 0.1s ease-in-out,
-    width 0.5s cubic-bezier(0.6, -0.62, 1, 1.42);
+    width 0.25s cubic-bezier(0.6, -0.62, 1, 1.42);
 
   &:hover {
     border-color: var(--clr-info);
@@ -50,7 +50,7 @@ const SearchContainer = styled.div`
     outline: none;
     border: none;
     width: ${(props) => (props.isOpen ? '100%' : '0%')};
-    transition: width 0.5s ease-in-out;
+    transition: width 0.25s ease-in-out;
 
     &::placeholder {
       color: var(--clr-primary-light);

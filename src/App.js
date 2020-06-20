@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import axios from './axios';
 import Header from './containers/Header/Header';
+import Loader from './components/Loader/Loader';
 
-function App() {
+function App({ loading, initApp, clearInit }) {
+  useEffect(() => {
+    // axios
+    //   .get()
+    //   .then((res) => console.log(res))
+    //   .catch((err) => console.log(err));
+    initApp();
+    setTimeout(clearInit, 5000);
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <Header />
@@ -9,4 +23,13 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (store) => ({
+  loading: store.loading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  initApp: () => dispatch({ type: 'loading' }),
+  clearInit: () => dispatch({ type: 'loading-finished' }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
