@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Logo from '../Logo/Logo';
+import Navigation from './Navigation/Navigation';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -21,8 +22,9 @@ const Wrapper = styled.div`
 
 const Sidebar = ({ isOpen }) => {
   return (
-    <Wrapper isOpen={isOpen}>
+    <Wrapper isOpen={true}>
       <Logo />
+      <Navigation />
     </Wrapper>
   );
 };

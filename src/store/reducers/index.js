@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
   loading: false,
+  sortBy: 'popularity',
+  search: '',
 };
 
 const reducer = (state = INITIAL_STATE, action) => {

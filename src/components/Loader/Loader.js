@@ -18,7 +18,8 @@ const borderFade = keyframes`
   100% {
     border-color: var(--clr-info);
     box-shadow: 0 0 0 3px rgba(244, 173, 6, 0.5),
-      0 0 0 6px rgba(244, 173, 6, 0.2);
+      0 0 0 6px rgba(244, 173, 6, 0.2),
+      0 0 0 9px rgba(244, 173, 6, 0.1);
   }
 `;
 

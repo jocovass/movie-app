@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+    padding: 5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 `;
 

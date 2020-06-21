@@ -5,14 +5,14 @@ import Header from './containers/Header/Header';
 import Loader from './components/Loader/Loader';
 
 function App({ loading, initApp, clearInit }) {
-  useEffect(() => {
-    // axios
-    //   .get()
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
-    initApp();
-    setTimeout(clearInit, 5000);
-  }, []);
+  // useEffect(() => {
+  //   // axios
+  //   //   .get()
+  //   //   .then((res) => console.log(res))
+  //   //   .catch((err) => console.log(err));
+  //   initApp();
+  //   setTimeout(clearInit, 2000);
+  // }, []);
   if (loading) {
     return <Loader />;
   }

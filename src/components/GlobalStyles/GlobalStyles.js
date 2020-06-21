@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
     :root {
         // Colors
         --clr-primary: #dcdcdc;
-        --clr-primary-light: #dcdcdc66;
+        --clr-primary-light: #dcdcdc70;
         --clr-secondary: #232323;
         --clr-success: #81a123;
         --clr-danger: #ef6837;
@@ -45,6 +45,7 @@ const GlobalStyles = createGlobalStyle`
     button {
         outline: none;
         background-color: transparent;
+        font-family: inherit;
         border: none;
         cursor: pointer;
     }
