@@ -6,9 +6,8 @@ import {
   faFilm,
   faAngleDown,
   faAngleUp,
-  faDotCircle,
-  faBalanceScale,
 } from '@fortawesome/free-solid-svg-icons';
+import Subnav from './Subnav';
 
 const Nav = styled.nav`
   .nav-group {
@@ -35,24 +34,28 @@ const Nav = styled.nav`
     }
 
     &__btn {
-      display: block;
+      width: 100%;
+      padding: 0.7rem 1rem;
       font-size: 1.4rem;
       color: var(--clr-primary-light);
-      padding: 0.7rem 1rem;
+      text-align: left;
+      border-left: 5px solid transparent;
+      transition: background 0.2s ease-in-out;
 
       &.active {
-        border-left: 5px solid var(--clr-info);
+        border-left-color: var(--clr-info);
         color: var(--clr-primary);
+      }
+
+      &:hover {
+        background-color: var(--clr-primary-light);
       }
     }
   }
 
   .genres .nav-group__btn {
     padding-left: 2rem;
-
-    &.active {
-      border: none;
-    }
+    border: none;
   }
 
   .icon-type {
@@ -65,41 +68,10 @@ const Nav = styled.nav`
   }
 `;
 
-const Subnav = styled.div`
-  overflow: hidden;
-  height: ${(props) => (props.isOpen ? '100%' : '0px')};
-  transition: height 1s ease;
-
-  .sub-nav {
-    &__list {
-      list-style-type: none;
-    }
-
-    &__item {
-      font-size: 1.2rem;
-      color: var(--clr-primary-light);
-
-      padding: 0.6rem 1rem;
-
-      &:not(:last-child) {
-        margin-bottom: 0.3rem;
-      }
-    }
-  }
-
-  .active {
-    border-left: 5px solid var(--clr-info);
-    color: var(--clr-primary);
-  }
-
-  .icon-dot {
-    margin-right: 1rem;
-  }
-`;
-
 const Navigation = () => {
   const [openMovies, setOpenMovies] = useState(false);
-  console.log(openMovies);
+  const [openTVShows, setOpenTVShows] = useState(false);
+
   return (
     <Nav>
       {/* Top navigation */}
@@ -131,58 +103,25 @@ const Navigation = () => {
               onClick={() => setOpenMovies(!openMovies)}
             >
               Movies
-              <FontAwesomeIcon icon={faAngleDown} className="icon-arrow" />
+              <FontAwesomeIcon
+                icon={openMovies ? faAngleUp : faAngleDown}
+                className="icon-arrow"
+              />
             </button>
-            <Subnav className="sub-nav" isOpen={openMovies}>
-              <ul className="sub-nav__list">
-                <li className="sub-nav__item active">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-                <li className="sub-nav__item">
-                  <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-                  Movies
-                </li>
-              </ul>
-            </Subnav>
+            <Subnav isOpen={openMovies} />
           </li>
           <li className="nav-group__item">
-            <button className="nav-group__btn">
+            <button
+              className="nav-group__btn"
+              onClick={() => setOpenTVShows(!openTVShows)}
+            >
               TV Shows
-              <FontAwesomeIcon icon={faAngleDown} className="icon-arrow" />
+              <FontAwesomeIcon
+                icon={openMovies ? faAngleUp : faAngleDown}
+                className="icon-arrow"
+              />
             </button>
+            <Subnav isOpen={openTVShows} />
           </li>
         </ul>
       </div>

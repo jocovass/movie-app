@@ -8,8 +8,8 @@ const Wrapper = styled.div`
   z-index: 100;
   top: 0;
   left: 0;
+  height: 100%;
   width: 20rem;
-  height: 100vh;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -22,7 +22,7 @@ const Wrapper = styled.div`
 
 const Sidebar = ({ isOpen }) => {
   return (
-    <Wrapper isOpen={true}>
+    <Wrapper isOpen={isOpen}>
       <Logo />
       <Navigation />
     </Wrapper>
