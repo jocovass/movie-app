@@ -1,18 +1,10 @@
-const INITIAL_STATE = {
-  loading: false,
-  sortBy: 'popularity',
-  search: '',
-};
+import { combineReducers } from 'redux';
+import appReducer from './appReducer';
+import apiReducer from './apiReducer';
 
-const reducer = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
-    case 'loading':
-      return { loading: true };
-    case 'loading-finished':
-      return { loading: false };
-    default:
-      return state;
-  }
-};
+const rootReducer = combineReducers({
+  app: appReducer,
+  api: apiReducer,
+});
 
-export default reducer;
+export default rootReducer;

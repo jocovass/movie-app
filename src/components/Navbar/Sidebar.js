@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Logo from '../Logo/Logo';
-import Navigation from './Navigation/Navigation';
+import Navigation from '../../containers/Navigation/Navigation';
 
 const Wrapper = styled.div`
   position: fixed;
