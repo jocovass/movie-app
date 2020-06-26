@@ -2,14 +2,26 @@ import * as types from '../actions/types';
 
 const INITIAL_STATE = {
   loading: false,
+  movieGenres: [],
+  tvGenres: [],
 };
 
 const appReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case types.START_LOADING:
-      return { loading: true };
+      return { ...state, loading: true };
     case types.STOP_LOADING:
-      return { loading: false };
+      return { ...state, loading: false };
+    case types.FETCH_MOVIE_GENRES:
+      return {
+        ...state,
+        movieGenres: action.payload,
+      };
+    case types.FETCH_TVSHOW_GENRES:
+      return {
+        ...state,
+        tvGenres: action.payload,
+      };
     default:
       return state;
   }

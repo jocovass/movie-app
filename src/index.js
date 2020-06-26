@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import history from './history';
 import GlobalStyles from './components/GlobalStyles/GlobalStyles';
-import App from './App';
+import App from './containers/App';
 import store from './store/store';
 
 ReactDOM.render(

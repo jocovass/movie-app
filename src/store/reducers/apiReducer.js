@@ -2,13 +2,10 @@ import * as types from '../actions/types';
 
 const INITIAL_STATE = {
   loading: false,
-  sortBy: 'popularity',
+  sortBy: 'popular',
+  selected: 'movie',
   movies: [],
-  tvshows: [],
-  genres: {
-    movie: [],
-    tvshow: [],
-  },
+  tv: [],
   page: 1,
 };
 
@@ -18,12 +15,18 @@ const apiReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case types.FETCH_FINISH:
       return { ...state, loading: false };
-    case types.FETCH_MOVIE_GENRES:
-      return { ...state, genres: { ...state.genres, movie: action.payload } };
-    case types.FETCH_TVSHOW_GENRES:
-      return { ...state, genres: { ...state.genres, tvshow: action.payload } };
     case types.FETCH_MOVIES:
-      return { ...state, movies: action.payload };
+      return {
+        ...state,
+        selected: action.payload.selected,
+        movies: action.payload.data,
+      };
+    case types.FETCH_TVSHOWS:
+      return {
+        ...state,
+        selected: action.payload.selected,
+        tv: action.payload.data,
+      };
     default:
       return state;
   }

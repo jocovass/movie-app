@@ -81,29 +81,13 @@ const Navbtn = styled.button`
 
 class Navigation extends Component {
   state = {
-    openMovies: false,
-    openTVShows: false,
-  };
-
-  handleTypeChange = (e) => {
-    if (e.type === 'keypress' && e.keyCode !== 13) return;
-    const element = e.target.closest('[data-type]');
-    this.setState({ selectedType: element.dataset.type, selectedGenre: '' });
-  };
-
-  handleGenreChange = (e) => {
-    if (e.type === 'keypress' && e.keyCode !== 13) return;
-    const element = e.target.closest('[data-name]');
-    this.setState({
-      selectedType: '',
-      selectedGenre: element.dataset.name,
-      discover: '',
-    });
+    openMovie: false,
+    openTv: false,
   };
 
   render() {
-    const { genres } = this.props;
-    const { openMovies, openTVShows, selectedType } = this.state;
+    const { movieGenres, tvGenres, selected } = this.props;
+    const { openMovie, openTv } = this.state;
     return (
       <Nav>
         {/* Top navigation */}
@@ -112,11 +96,8 @@ class Navigation extends Component {
           <ul className="nav-group__list">
             <li className="nav-group__item">
               <Navlink
-                to="/discover/movie"
-                data-type="movies"
-                selected={selectedType === 'movies' ? true : false}
-                onClick={this.handleTypeChange}
-                onKeyPress={this.handleTypeChange}
+                to="/movie/popular"
+                selected={selected === 'movie' ? true : false}
               >
                 <FontAwesomeIcon icon={faFilm} className="icon-type" />
                 Movies
@@ -124,11 +105,8 @@ class Navigation extends Component {
             </li>
             <li className="nav-group__item">
               <Navlink
-                to="/discover/tvshows"
-                data-type="tvshows"
-                selected={selectedType === 'tvshows' ? true : false}
-                onClick={this.handleTypeChange}
-                onKeyPress={this.handleTypeChange}
+                to="/tv/popular"
+                selected={selected === 'tv' ? true : false}
               >
                 <FontAwesomeIcon icon={faTv} className="icon-type" />
                 TV Shows
@@ -146,36 +124,46 @@ class Navigation extends Component {
                 className="dropdown"
                 onClick={() =>
                   this.setState((prevState) => ({
-                    openMovies: !prevState.openMovies,
+                    openMovie: !prevState.openMovie,
                   }))
                 }
-                selected={openMovies}
+                selected={openMovie}
               >
                 Movies
                 <FontAwesomeIcon
-                  icon={openMovies ? faAngleUp : faAngleDown}
+                  icon={openMovie ? faAngleUp : faAngleDown}
                   className="icon-arrow"
                 />
               </Navbtn>
-              <Subnav isOpen={openMovies} navItems={genres.movie} />
+              <Subnav
+                isOpen={openMovie}
+                navItems={movieGenres}
+                selected={selected}
+                type="movie"
+              />
             </li>
             <li className="nav-group__item">
               <Navbtn
                 className="dropdown"
                 onClick={() =>
                   this.setState((prevState) => ({
-                    openTVShows: !prevState.openTVShows,
+                    openTv: !prevState.openTv,
                   }))
                 }
-                selected={openTVShows}
+                selected={openTv}
               >
                 TV Shows
                 <FontAwesomeIcon
-                  icon={openTVShows ? faAngleUp : faAngleDown}
+                  icon={openTv ? faAngleUp : faAngleDown}
                   className="icon-arrow"
                 />
               </Navbtn>
-              <Subnav isOpen={openTVShows} navItems={genres.tvshow} />
+              <Subnav
+                isOpen={openTv}
+                navItems={tvGenres}
+                selected={selected}
+                type="tv"
+              />
             </li>
           </ul>
         </div>
@@ -184,8 +172,10 @@ class Navigation extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  genres: state.api.genres,
+const mapStateToProps = ({ api, app }) => ({
+  movieGenres: app.movieGenres,
+  tvGenres: app.tvGenres,
+  selected: api.selected,
 });
 
 export default connect(mapStateToProps)(Navigation);

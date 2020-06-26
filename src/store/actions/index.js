@@ -1,10 +1,22 @@
+import axios from '../../axios';
 import * as types from './types';
-import { fetchMovieGenres } from './movieActions';
-import { fetchTVShowGenres } from './tvshowActions';
+
+// we FETCH all the available GENRES from the API to generate the menu on initial load
+const fetchMovieGenres = () => async (dispatch) => {
+  const res = await axios.get('/genre/movie/list');
+
+  dispatch({ type: types.FETCH_MOVIE_GENRES, payload: res.data.genres });
+};
+
+const fetchTVShowGenres = () => async (dispatch) => {
+  const res = await axios.get('/genre/tv/list');
+  console.log(res.data.genres);
+  dispatch({ type: types.FETCH_TVSHOW_GENRES, payload: res.data.genres });
+};
 
 export const init = () => async (dispatch) => {
   dispatch({ type: types.START_LOADING });
-  await dispatch(fetchMovieGenres());
-  await dispatch(fetchTVShowGenres());
+  dispatch(fetchMovieGenres());
+  dispatch(fetchTVShowGenres());
   dispatch({ type: types.STOP_LOADING });
 };
