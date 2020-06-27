@@ -6,6 +6,7 @@ import axios from '../../axios';
 import Loader from '../../components/Loader/Loader';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Movie from '../../components/Movie/Movie';
+import Pagination from '../../components/Pagination/Pagination';
 
 const Wrapper = styled.main`
   margin-top: 6.5rem;
@@ -22,7 +23,7 @@ const Header = styled.header`
 `;
 
 const Body = styled.section`
-  padding: 5rem 2rem;
+  padding: 5rem 2rem 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 180px));
   grid-gap: 2rem;
@@ -96,6 +97,7 @@ class Movies extends Component {
             <Movie key={movie.id} movie={movie} url={this.base_url} />
           ))}
         </Body>
+        <Pagination currentPage={200} numsBtn={5} totalPage={500} />
       </Wrapper>
     );
   }
