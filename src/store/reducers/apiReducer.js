@@ -4,8 +4,8 @@ const INITIAL_STATE = {
   loading: false,
   sortBy: 'popular',
   selected: 'movie',
-  movies: [],
-  tv: [],
+  movies: { results: [] },
+  tv: { results: [] },
   page: 1,
 };
 

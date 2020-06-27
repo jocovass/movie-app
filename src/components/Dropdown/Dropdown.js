@@ -4,11 +4,11 @@ import styled from 'styled-components';
 const DropdownContainer = styled.div`
   cursor: pointer;
   display: inline-block;
-  width: 16rem;
-  min-width: 130px;
+  width: 12rem;
+  min-width: 100px;
   position: relative;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  z-index: 20;
 
   &:focus {
     outline: none;
@@ -17,7 +17,7 @@ const DropdownContainer = styled.div`
   .selected-text {
     pointer-events: none;
     background-color: var(--clr-secondary);
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1rem;
     border: 1px solid var(--clr-primary-light);
     border-radius: 20px;
     position: relative;
@@ -26,11 +26,11 @@ const DropdownContainer = styled.div`
 
   .arrow {
     /* background-color: red; */
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 0.9rem;
+    height: 0.9rem;
     position: absolute;
     right: 1.2rem;
-    top: 1.1rem;
+    top: 1rem;
 
     .left-arrow,
     .right-arrow {
@@ -66,6 +66,7 @@ const DropdownContainer = styled.div`
     position: absolute;
     width: 100%;
     top: 110%;
+    background-color: var(--clr-secondary);
     border: 1px solid var(--clr-info);
     border-radius: 10px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
@@ -131,12 +132,17 @@ const DropdownContainer = styled.div`
   }
 `;
 
-const Dropdown = ({ defaultSelectedText, optionList }) => {
+const Dropdown = ({ options, selectedOption, setSelectedOption }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedText, setSelectedText] = useState(defaultSelectedText);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
   });
 
   const handleClickOutside = (e) => {
@@ -159,7 +165,9 @@ const Dropdown = ({ defaultSelectedText, optionList }) => {
   };
 
   const handleTextSelect = (e) => {
-    setSelectedText(e.target.dataset.name);
+    options.forEach((el) => {
+      if (el.sortBy === e.target.dataset.name) setSelectedOption(el);
+    });
     setIsOpen(false);
   };
 
@@ -175,7 +183,7 @@ const Dropdown = ({ defaultSelectedText, optionList }) => {
       aria-expanded={isOpen}
     >
       <div className="selected-text">
-        {selectedText}
+        {selectedOption.name}
         <div className="arrow">
           <span className="left-arrow"></span>
           <span className="right-arrow"></span>
@@ -189,14 +197,14 @@ const Dropdown = ({ defaultSelectedText, optionList }) => {
         aria-label="List of options"
         tabIndex="-1"
       >
-        {optionList.map((option) => {
+        {options.map((option) => {
           return (
             <li
               className="option-item"
-              data-name={option.name}
+              data-name={option.sortBy}
               role="option"
               key={option.name}
-              aria-selected={selectedText === option.name ? true : false}
+              aria-selected={selectedOption === option.name ? true : false}
             >
               {option.name}
             </li>

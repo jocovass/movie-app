@@ -9,7 +9,6 @@ import TVShows from './TVShow/TVShows';
 
 class App extends Component {
   componentDidMount() {
-    console.log('valami');
     this.props.init();
   }
   render() {
@@ -20,12 +19,12 @@ class App extends Component {
     }
 
     return (
-      <>
+      <div>
         <Header />
         <Redirect from="/" to="/movie" />
         <Route path="/movie" component={Movies} />
         <Route path="/tv" component={TVShows} />
-      </>
+      </div>
     );
   }
 }

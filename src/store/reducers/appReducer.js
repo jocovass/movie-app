@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   loading: false,
   movieGenres: [],
   tvGenres: [],
+  sidebarOpen: false,
 };
 
 const appReducer = (state = INITIAL_STATE, action) => {
@@ -21,6 +22,11 @@ const appReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         tvGenres: action.payload,
+      };
+    case types.TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        sidebarOpen: action.payload,
       };
     default:
       return state;

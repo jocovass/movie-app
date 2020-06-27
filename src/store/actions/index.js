@@ -10,7 +10,6 @@ const fetchMovieGenres = () => async (dispatch) => {
 
 const fetchTVShowGenres = () => async (dispatch) => {
   const res = await axios.get('/genre/tv/list');
-  console.log(res.data.genres);
   dispatch({ type: types.FETCH_TVSHOW_GENRES, payload: res.data.genres });
 };
 
@@ -20,3 +19,8 @@ export const init = () => async (dispatch) => {
   dispatch(fetchTVShowGenres());
   dispatch({ type: types.STOP_LOADING });
 };
+
+export const toggleSidebar = (sidebarOpen) => ({
+  type: types.TOGGLE_SIDEBAR,
+  payload: sidebarOpen,
+});

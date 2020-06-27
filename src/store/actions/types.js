@@ -1,6 +1,7 @@
 // app
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 
 // api
 export const FETCH_START = 'FETCH_START';
