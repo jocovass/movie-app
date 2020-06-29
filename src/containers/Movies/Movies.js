@@ -1,52 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { fetchMovies } from '../../store/actions/movieActions';
 import axios from '../../axios';
 import Loader from '../../components/Loader/Loader';
 import Dropdown from '../../components/Dropdown/Dropdown';
-import Movie from '../../components/Movie/Movie';
+import Cover from '../../components/Cover/Cover';
 import Pagination from '../../components/Pagination/Pagination';
-
-const Wrapper = styled.main`
-  margin-top: 6.5rem;
-  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '20em' : '0')};
-  transition: 0.4s ease-in-out;
-  min-width: 320px;
-  padding: 3rem 1.5rem 1rem;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Body = styled.section`
-  padding: 5rem 2rem 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 180px));
-  grid-gap: 2rem;
-  justify-content: center;
-`;
-
-const Title = styled.h1`
-  font-size: 1.7rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    height: 3px;
-    width: 3rem;
-    border-radius: 20px;
-    background-color: var(--clr-info);
-  }
-`;
+import {
+  Wrapper,
+  Header,
+  Body,
+  Title,
+} from '../../components/styledComponents/styledComponents';
 
 const options = [
   { name: 'Most Popular', sortBy: 'popular' },
@@ -59,17 +24,22 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
+    const { page } = this.props.match.params;
     const {
       data: { images },
     } = await axios.get('/configuration');
     this.base_url = `${images.secure_base_url}/${images.poster_sizes[4]}`;
-    this.props.fetchMovies(this.state.selectedOption.sortBy);
+    this.props.fetchMovies(this.state.selectedOption.sortBy, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { page } = this.props.match.params;
     const { sortBy } = this.state.selectedOption;
-    if (prevState.selectedOption.sortBy !== sortBy)
-      this.props.fetchMovies(sortBy);
+    if (prevState.selectedOption.sortBy !== sortBy) {
+      this.props.fetchMovies(sortBy, page);
+    } else if (prevProps.match.params.page !== page) {
+      this.props.fetchMovies(sortBy, page);
+    }
   }
 
   setSelectedOptions = (el) => {
@@ -94,10 +64,15 @@ class Movies extends Component {
         </Header>
         <Body>
           {movies.results.map((movie) => (
-            <Movie key={movie.id} movie={movie} url={this.base_url} />
+            <Cover key={movie.id} item={movie} url={this.base_url} />
           ))}
         </Body>
-        <Pagination currentPage={200} numsBtn={5} totalPage={500} />
+        <Pagination
+          currentPage={movies.page}
+          maxBtns={5}
+          totalPage={movies.total_pages}
+          path="/movie"
+        />
       </Wrapper>
     );
   }

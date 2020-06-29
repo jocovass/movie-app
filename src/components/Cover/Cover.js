@@ -47,14 +47,17 @@ const Navlink = styled(Link)`
   }
 `;
 
-const Movie = ({ url, movie: { poster_path, title, id, vote_average } }) => {
+const Cover = ({
+  url,
+  item: { poster_path, title, name, id, vote_average },
+}) => {
   return (
     <Figure>
       <ImgWrapper>
         <Img src={`${url}/${poster_path}`} alt={title} />
       </ImgWrapper>
       <Figcaption>
-        <Navlink to="/">{title}</Navlink>
+        <Navlink to="/">{formatTitle(title || name, 20)}</Navlink>
         <div className="movie-rating">
           <FontAwesomeIcon icon={faStar} />
           <span>{vote_average}</span>
@@ -64,4 +67,17 @@ const Movie = ({ url, movie: { poster_path, title, id, vote_average } }) => {
   );
 };
 
-export default Movie;
+const formatTitle = (title, limit) => {
+  if (title.length <= limit) return title;
+  const words = title.split(' ');
+  let formated = '';
+  for (let i = 0; i < words.length; i++) {
+    if (formated.length + words[i].length > limit) {
+      break;
+    }
+    formated += `${words[i]} `;
+  }
+  return `${formated}...`;
+};
+
+export default Cover;

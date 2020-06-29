@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Logo from '../Logo/Logo';
 import Navigation from '../../containers/Navigation/Navigation';
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
   transform: ${(props) =>
     props.isOpen ? 'translateX(0)' : 'translateX(-130%)'};
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.25s ease-in-out;
 `;
 
 const Sidebar = ({ isOpen }) => {

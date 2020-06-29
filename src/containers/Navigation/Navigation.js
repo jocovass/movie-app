@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -10,7 +10,7 @@ import {
   faAngleUp,
 } from '@fortawesome/free-solid-svg-icons';
 import Subnav from '../../components/Subnav/Subnav';
-import { Component } from 'react';
+import { toggleSidebar } from '../../store/actions/index';
 
 const Nav = styled.nav`
   .nav-group {
@@ -85,6 +85,10 @@ class Navigation extends Component {
     openTv: false,
   };
 
+  handleNavItemClick = () => {
+    this.props.toggleSidebar(!this.props.sidebarOpen);
+  };
+
   render() {
     const { movieGenres, tvGenres, selected } = this.props;
     const { openMovie, openTv } = this.state;
@@ -96,8 +100,9 @@ class Navigation extends Component {
           <ul className="nav-group__list">
             <li className="nav-group__item">
               <Navlink
-                to="/movie/popular"
+                to="/movie/1"
                 selected={selected === 'movie' ? true : false}
+                onClick={this.handleNavItemClick}
               >
                 <FontAwesomeIcon icon={faFilm} className="icon-type" />
                 Movies
@@ -105,8 +110,9 @@ class Navigation extends Component {
             </li>
             <li className="nav-group__item">
               <Navlink
-                to="/tv/popular"
+                to="/tv/1"
                 selected={selected === 'tv' ? true : false}
+                onClick={this.handleNavItemClick}
               >
                 <FontAwesomeIcon icon={faTv} className="icon-type" />
                 TV Shows
@@ -175,7 +181,8 @@ class Navigation extends Component {
 const mapStateToProps = ({ api, app }) => ({
   movieGenres: app.movieGenres,
   tvGenres: app.tvGenres,
+  sidebarOpen: app.sidebarOpen,
   selected: api.selected,
 });
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps, { toggleSidebar })(Navigation);

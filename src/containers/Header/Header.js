@@ -15,9 +15,9 @@ const HeaderWrapper = styled.header`
   z-index: 50;
   background-color: var(--clr-secondary);
   margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '20em' : '0')};
+  transition: margin 0.25s ease-in-out;
   min-width: 320px;
   padding: 1.5rem;
-  transition: 0.4s ease-in-out;
   display: flex;
   align-content: center;
   justify-content: space-between;

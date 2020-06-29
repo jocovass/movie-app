@@ -86,7 +86,7 @@ const Search = () => {
   };
 
   const openSearchBox = (e) => {
-    if (e.keyCode == 13 || e.type === 'click') {
+    if (e.keyCode === 13 || e.type === 'click') {
       setIsOpen(true);
       inputRef.current.focus();
     } else if (e.keyCode === 27) {

@@ -4,9 +4,8 @@ const INITIAL_STATE = {
   loading: false,
   sortBy: 'popular',
   selected: 'movie',
-  movies: { results: [] },
-  tv: { results: [] },
-  page: 1,
+  movies: { results: [], page: 1, total_pages: 1 },
+  tvs: { results: [], page: 1, total_pages: 1 },
 };
 
 const apiReducer = (state = INITIAL_STATE, action) => {
@@ -25,7 +24,7 @@ const apiReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         selected: action.payload.selected,
-        tv: action.payload.data,
+        tvs: action.payload.data,
       };
     default:
       return state;

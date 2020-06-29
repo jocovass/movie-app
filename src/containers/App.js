@@ -21,9 +21,11 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Redirect from="/" to="/movie" />
-        <Route path="/movie" component={Movies} />
-        <Route path="/tv" component={TVShows} />
+        <Switch>
+          <Redirect from="/" exact to="/movie/1" />
+          <Route path="/movie/:page" component={Movies} />
+          <Route path="/tv/:page" component={TVShows} />
+        </Switch>
       </div>
     );
   }
