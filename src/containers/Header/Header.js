@@ -14,14 +14,15 @@ const HeaderWrapper = styled.header`
   right: 0;
   z-index: 50;
   background-color: var(--clr-secondary);
-  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '20em' : '0')};
+  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17em' : '0')};
   transition: margin 0.25s ease-in-out;
+  height: 6rem;
   min-width: 320px;
   padding: 1.5rem;
   display: flex;
   align-content: center;
   justify-content: space-between;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
 
   .slide-enter {
     transform: translateX(-100%);

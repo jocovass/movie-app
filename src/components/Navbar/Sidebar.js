@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   top: 0;
   left: 0;
   height: 100%;
-  width: 20rem;
+  width: 17rem;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;

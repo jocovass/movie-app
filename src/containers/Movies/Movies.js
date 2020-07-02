@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchMovies } from '../../store/actions/movieActions';
-import axios from '../../axios';
 import Loader from '../../components/Loader/Loader';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Cover from '../../components/Cover/Cover';
@@ -25,10 +24,7 @@ class Movies extends Component {
 
   async componentDidMount() {
     const { page } = this.props.match.params;
-    const {
-      data: { images },
-    } = await axios.get('/configuration');
-    this.base_url = `${images.secure_base_url}/${images.poster_sizes[4]}`;
+
     this.props.fetchMovies(this.state.selectedOption.sortBy, page);
   }
 
@@ -47,8 +43,11 @@ class Movies extends Component {
   };
 
   render() {
-    const { movies, loading } = this.props;
-
+    const { movies, loading, image } = this.props;
+    let imageUrl = '';
+    if (image.url) {
+      imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    }
     if (loading) {
       return <Loader />;
     }
@@ -64,14 +63,19 @@ class Movies extends Component {
         </Header>
         <Body>
           {movies.results.map((movie) => (
-            <Cover key={movie.id} item={movie} url={this.base_url} />
+            <Cover
+              key={movie.id}
+              item={movie}
+              url={imageUrl}
+              path={`/movie/${movie.id}`}
+            />
           ))}
         </Body>
         <Pagination
           currentPage={movies.page}
           maxBtns={5}
           totalPage={movies.total_pages}
-          path="/movie"
+          path="/movies"
         />
       </Wrapper>
     );
@@ -80,8 +84,10 @@ class Movies extends Component {
 
 const mapStateToProps = ({ api, app }) => ({
   sidebarOpen: app.sidebarOpen,
+  image: app.image,
   movies: api.movies,
   loading: api.loading,
+  selected: api.selected,
 });
 
 export default connect(mapStateToProps, { fetchMovies })(Movies);

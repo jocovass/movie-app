@@ -8,8 +8,8 @@ const SearchContainer = styled.div`
   align-self: center;
   overflow: hidden;
   cursor: pointer;
-  width: ${(props) => (props.isOpen ? '21rem' : '3.5rem')};
-  height: 3.5rem;
+  width: ${(props) => (props.isOpen ? '17rem' : '3.1rem')};
+  height: 3.1rem;
   outline: none;
   border-radius: 100px;
   border: 1px solid var(--clr-primary-light);
@@ -36,8 +36,8 @@ const SearchContainer = styled.div`
   }
 
   button {
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 3.1rem;
+    height: 3.1rem;
     color: var(--clr-primary-light);
     pointer-events: ${(props) => (props.isOpen ? 'auto' : 'none')};
     display: block;
@@ -45,7 +45,7 @@ const SearchContainer = styled.div`
   }
 
   input {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--clr-primary);
     background-color: transparent;
     outline: none;
@@ -60,7 +60,7 @@ const SearchContainer = styled.div`
 `;
 
 const SearchIcon = styled(FontAwesomeIcon)`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 `;
 
 const Search = () => {

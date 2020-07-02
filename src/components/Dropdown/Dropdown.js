@@ -4,10 +4,10 @@ import styled from 'styled-components';
 const DropdownContainer = styled.div`
   cursor: pointer;
   display: inline-block;
-  width: 12rem;
-  min-width: 100px;
+  width: 11rem;
+  min-width: 80px;
   position: relative;
-  font-size: 1.1rem;
+  font-size: 1rem;
   z-index: 20;
 
   &:focus {
@@ -26,8 +26,8 @@ const DropdownContainer = styled.div`
 
   .arrow {
     /* background-color: red; */
-    width: 0.9rem;
-    height: 0.9rem;
+    width: 0.8rem;
+    height: 0.8rem;
     position: absolute;
     right: 1.2rem;
     top: 1rem;

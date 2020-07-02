@@ -64,14 +64,19 @@ class TVShows extends Component {
         </Header>
         <Body>
           {tvs.results.map((tv) => (
-            <Cover key={tv.id} item={tv} url={this.base_url} />
+            <Cover
+              key={tv.id}
+              item={tv}
+              url={this.base_url}
+              path={`/tv/${tv.id}`}
+            />
           ))}
         </Body>
         <Pagination
           currentPage={tvs.page}
           maxBtns={5}
           totalPage={tvs.total_pages}
-          path="/movie"
+          path="/tvs"
         />
       </Wrapper>
     );

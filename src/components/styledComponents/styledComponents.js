@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
-  margin-top: 6.5rem;
-  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '20em' : '0')};
+  margin-top: 6rem;
+  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17em' : '0')};
   transition: margin 0.25s ease-in-out;
   min-width: 320px;
-  padding: 3rem 1.5rem 1rem;
+  padding: 3.5rem 2rem 1rem;
 `;
 
 export const Header = styled.header`

@@ -1,12 +1,15 @@
 // app
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
+export const INITIALIZE = 'INITIALIZE';
+export const CONFIUGRE = 'CONFIUGRE';
 export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 
 // api
 export const FETCH_START = 'FETCH_START';
 export const FETCH_FINISH = 'FETCH_FINISH';
 export const FETCH_MOVIES = 'FETCH_MOVIES';
+export const FETCH_MOVIE = 'FETCH_MOVIE';
 export const FETCH_MOVIE_GENRES = 'FETCH_MOVIE_GENRES';
 
 export const FETCH_TVSHOWS = 'FETCH_TVSHOWS';

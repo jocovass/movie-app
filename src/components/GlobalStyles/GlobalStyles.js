@@ -4,7 +4,7 @@ const GlobalStyles = createGlobalStyle`
     :root {
         // Colors
         --clr-primary: #dcdcdc;
-        --clr-primary-light: #dcdcdc70;
+        --clr-primary-light: #dcdcdc80;
         --clr-secondary: #232323;
         --clr-success: #81a123;
         --clr-danger: #ef6837;
@@ -12,7 +12,7 @@ const GlobalStyles = createGlobalStyle`
         // Font-Family
         --ff-sansSerif: 'Merriweather Sans', sans-serif;
         // Font-size
-        --fs: 56.25%;
+        --fs: 62.5%;
         // Font-weights
         --fw-light: 300;
         --fw-normal: 400;

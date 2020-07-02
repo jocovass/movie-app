@@ -18,7 +18,7 @@ const Nav = styled.nav`
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 
     &__title {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       letter-spacing: 1px;
       font-weight: 300;
       text-transform: uppercase;
@@ -32,7 +32,7 @@ const Nav = styled.nav`
 
     &__item {
       &:not(:last-child) {
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.2rem;
       }
     }
   }
@@ -45,9 +45,9 @@ const Nav = styled.nav`
 
 const Navitem = css`
   width: 100%;
-  padding: 0.7rem 1rem;
-  font-size: 1.4rem;
-  border-left: 5px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-left: 0.4rem solid transparent;
   color: ${(props) =>
     props.selected ? 'var(--clr-primary)' : 'var(--clr-primary-light)'};
   transition: background 0.2s ease-in-out;
@@ -92,6 +92,7 @@ class Navigation extends Component {
   render() {
     const { movieGenres, tvGenres, selected } = this.props;
     const { openMovie, openTv } = this.state;
+
     return (
       <Nav>
         {/* Top navigation */}
@@ -100,8 +101,8 @@ class Navigation extends Component {
           <ul className="nav-group__list">
             <li className="nav-group__item">
               <Navlink
-                to="/movie/1"
-                selected={selected === 'movie' ? true : false}
+                to="/movies/1"
+                selected={selected === 'movies' ? true : false}
                 onClick={this.handleNavItemClick}
               >
                 <FontAwesomeIcon icon={faFilm} className="icon-type" />
@@ -110,8 +111,8 @@ class Navigation extends Component {
             </li>
             <li className="nav-group__item">
               <Navlink
-                to="/tv/1"
-                selected={selected === 'tv' ? true : false}
+                to="/tvs/1"
+                selected={selected === 'tvs' ? true : false}
                 onClick={this.handleNavItemClick}
               >
                 <FontAwesomeIcon icon={faTv} className="icon-type" />

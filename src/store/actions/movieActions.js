@@ -14,7 +14,26 @@ export const fetchMovies = (sortBy = 'popular', page = 1) => async (
   });
   dispatch({
     type: types.FETCH_MOVIES,
-    payload: { selected: 'movie', data: res.data },
+    payload: { selected: 'movies', data: res.data },
+  });
+  dispatch({ type: types.FETCH_FINISH });
+};
+
+export const fetchMovie = (id) => async (dispatch) => {
+  dispatch({ type: types.FETCH_START });
+  const res = await Promise.all([
+    axios.get(`/movie/${id}`),
+    axios.get(`/movie/${id}/credits`),
+    axios.get(`/movie/${id}/recommendations`),
+  ]);
+  await dispatch({
+    type: types.FETCH_MOVIE,
+    payload: {
+      selected: '',
+      singleItem: res[0].data,
+      cast: res[1].data.cast,
+      movies: res[2].data,
+    },
   });
   dispatch({ type: types.FETCH_FINISH });
 };

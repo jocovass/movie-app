@@ -27,7 +27,7 @@ const Figcaption = styled.figcaption`
   text-align: center;
 
   .movie-rating {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 
     svg {
       color: var(--clr-info);
@@ -37,10 +37,10 @@ const Figcaption = styled.figcaption`
 `;
 
 const Navlink = styled(Link)`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: var(--clr-primary);
   text-decoration: none;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.7rem;
 
   &:hover {
     text-decoration: underline;
@@ -49,7 +49,8 @@ const Navlink = styled(Link)`
 
 const Cover = ({
   url,
-  item: { poster_path, title, name, id, vote_average },
+  path,
+  item: { poster_path, title, name, vote_average },
 }) => {
   return (
     <Figure>
@@ -57,7 +58,7 @@ const Cover = ({
         <Img src={`${url}/${poster_path}`} alt={title} />
       </ImgWrapper>
       <Figcaption>
-        <Navlink to="/">{formatTitle(title || name, 20)}</Navlink>
+        <Navlink to={path}>{formatTitle(title || name, 20)}</Navlink>
         <div className="movie-rating">
           <FontAwesomeIcon icon={faStar} />
           <span>{vote_average}</span>

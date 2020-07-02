@@ -14,7 +14,7 @@ export const fetchTVShows = (sortBy = 'popular', page = 1) => async (
   });
   dispatch({
     type: types.FETCH_TVSHOWS,
-    payload: { selected: 'tv', data: res.data },
+    payload: { selected: 'tvs', sortBy, data: res.data },
   });
   dispatch({ type: types.FETCH_FINISH });
 };

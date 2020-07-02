@@ -7,7 +7,7 @@ import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
 const Nav = styled.div`
   overflow: hidden;
   background-color: #282828;
-  height: ${(props) => (props.isOpen ? `calc(28.1px * ${props.size})` : '0px')};
+  height: ${(props) => (props.isOpen ? `calc(2.7rem * ${props.size})` : '0px')};
   transition: height 0.3s ease-in-out;
   box-shadow: inset 0px -0.5px 5px rgba(0, 0, 0, 0.05),
     inset 0 0.5px 5px rgba(0, 0, 0, 0.1);
@@ -34,16 +34,16 @@ const Subnav = ({ isOpen, navItems, selected }) => {
 
 const Item = styled.li`
   &:not(:last-child) {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
 
   .sub-nav__link {
     width: 100%;
     display: inline-block;
     text-decoration: none;
-    padding: 0.6rem 3rem;
-    font-size: 1.2rem;
-    border-left: 5px solid transparent;
+    padding: 0.5rem 0 0.5rem 2rem;
+    font-size: 1.1rem;
+    border-left: 0.4rem solid transparent;
     color: ${(props) =>
       props.selected ? 'var(--clr-primary)' : 'var(--clr-primary-light)'};
     border-left-color: ${(props) =>

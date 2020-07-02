@@ -2,9 +2,10 @@ import * as types from '../actions/types';
 
 const INITIAL_STATE = {
   loading: false,
+  sidebarOpen: false,
   movieGenres: [],
   tvGenres: [],
-  sidebarOpen: false,
+  image: {},
 };
 
 const appReducer = (state = INITIAL_STATE, action) => {
@@ -13,16 +14,25 @@ const appReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case types.STOP_LOADING:
       return { ...state, loading: false };
-    case types.FETCH_MOVIE_GENRES:
+    case types.INITIALIZE:
       return {
         ...state,
-        movieGenres: action.payload,
+        image: action.payload.image,
+        movieGenres: action.payload.movieGenres,
+        tvGenres: action.payload.tvGenres,
       };
-    case types.FETCH_TVSHOW_GENRES:
-      return {
-        ...state,
-        tvGenres: action.payload,
-      };
+    // case types.CONFIUGRE:
+    //   return { ...state, image: action.payload.image };
+    // case types.FETCH_MOVIE_GENRES:
+    //   return {
+    //     ...state,
+    //     movieGenres: action.payload,
+    //   };
+    // case types.FETCH_TVSHOW_GENRES:
+    //   return {
+    //     ...state,
+    //     tvGenres: action.payload,
+    //   };
     case types.TOGGLE_SIDEBAR:
       return {
         ...state,
