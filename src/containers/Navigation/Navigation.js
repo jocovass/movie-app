@@ -101,7 +101,7 @@ class Navigation extends Component {
           <ul className="nav-group__list">
             <li className="nav-group__item">
               <Navlink
-                to="/movies/1"
+                to="/movies"
                 selected={selected === 'movies' ? true : false}
                 onClick={this.handleNavItemClick}
               >
@@ -179,11 +179,11 @@ class Navigation extends Component {
   }
 }
 
-const mapStateToProps = ({ api, app }) => ({
+const mapStateToProps = ({ app }) => ({
   movieGenres: app.movieGenres,
   tvGenres: app.tvGenres,
   sidebarOpen: app.sidebarOpen,
-  selected: api.selected,
+  selected: app.selected,
 });
 
 export default connect(mapStateToProps, { toggleSidebar })(Navigation);

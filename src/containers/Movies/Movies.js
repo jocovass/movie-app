@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMovies } from '../../store/actions/movieActions';
+import { fetchMovies, changePage } from '../../store/actions/moviesActions';
 import Loader from '../../components/Loader/Loader';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Cover from '../../components/Cover/Cover';
@@ -23,17 +23,15 @@ class Movies extends Component {
   };
 
   async componentDidMount() {
-    const { page } = this.props.match.params;
-
-    this.props.fetchMovies(this.state.selectedOption.sortBy, page);
+    this.props.fetchMovies(this.state.selectedOption.sortBy);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page } = this.props.match.params;
+    const { page, newPage } = this.props;
     const { sortBy } = this.state.selectedOption;
     if (prevState.selectedOption.sortBy !== sortBy) {
-      this.props.fetchMovies(sortBy, page);
-    } else if (prevProps.match.params.page !== page) {
+      this.props.fetchMovies(sortBy, 1);
+    } else if (prevProps.page !== page && newPage) {
       this.props.fetchMovies(sortBy, page);
     }
   }
@@ -43,11 +41,16 @@ class Movies extends Component {
   };
 
   render() {
-    const { movies, loading, image } = this.props;
-    let imageUrl = '';
-    if (image.url) {
-      imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
-    }
+    const {
+      movies,
+      loading,
+      image,
+      total_pages,
+      page,
+      changePage,
+    } = this.props;
+    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+
     if (loading) {
       return <Loader />;
     }
@@ -62,7 +65,7 @@ class Movies extends Component {
           />
         </Header>
         <Body>
-          {movies.results.map((movie) => (
+          {movies.map((movie) => (
             <Cover
               key={movie.id}
               item={movie}
@@ -72,22 +75,25 @@ class Movies extends Component {
           ))}
         </Body>
         <Pagination
-          currentPage={movies.page}
+          currentPage={page}
           maxBtns={5}
-          totalPage={movies.total_pages}
-          path="/movies"
+          totalPage={total_pages}
+          changePage={changePage}
         />
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ api, app }) => ({
+const mapStateToProps = ({ movies, app }) => ({
   sidebarOpen: app.sidebarOpen,
   image: app.image,
-  movies: api.movies,
-  loading: api.loading,
-  selected: api.selected,
+  selected: app.selected,
+  page: movies.page,
+  newPage: movies.newPage,
+  total_pages: movies.total_pages,
+  movies: movies.items,
+  loading: movies.loading,
 });
 
-export default connect(mapStateToProps, { fetchMovies })(Movies);
+export default connect(mapStateToProps, { fetchMovies, changePage })(Movies);

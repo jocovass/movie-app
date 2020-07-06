@@ -5,8 +5,10 @@ const INITIAL_STATE = {
   selected: 'movies',
   singleItem: {},
   cast: [],
-  movies: { results: [], page: 1, total_pages: 1 },
+  movies: [],
   tvs: { results: [], page: 1, total_pages: 1 },
+  page: 1,
+  total_pages: 1,
 };
 
 const apiReducer = (state = INITIAL_STATE, action) => {
@@ -18,7 +20,8 @@ const apiReducer = (state = INITIAL_STATE, action) => {
     case types.FETCH_MOVIES:
       return {
         ...state,
-        ...action.payload,
+        page: action.payload.page,
+        total_pages: action.payload.total_pages,
         selected: action.payload.selected,
         movies: action.payload.data,
       };

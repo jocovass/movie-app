@@ -6,7 +6,7 @@ import Loader from '../components/Loader/Loader';
 import Header from './Header/Header';
 import Movies from './Movies/Movies';
 import TVShows from './TVShow/TVShows';
-import SingleItem from './SingleItem/SingleItem';
+import SingleMovie from './SingleMovie/SingleMovie';
 
 class App extends Component {
   componentDidMount() {
@@ -23,10 +23,10 @@ class App extends Component {
       <div>
         <Header />
         <Switch>
-          <Redirect from="/" exact to="/movies/1" />
-          <Route path="/movies/:page" component={Movies} />
+          <Redirect from="/" exact to="/movies" />
+          <Route path="/movies" component={Movies} />
           <Route path="/tvs/:page" component={TVShows} />
-          <Route path="/movie/:id" component={SingleItem} />
+          <Route path="/movie/:id" component={SingleMovie} />
         </Switch>
       </div>
     );

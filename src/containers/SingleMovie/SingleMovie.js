@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import styled, { css } from 'styled-components';
-import { fetchMovie } from '../../store/actions/movieActions';
+import styled from 'styled-components';
+import { fetchSingleMovie } from '../../store/actions/singleMovieActions';
 import {
   Wrapper,
-  Header,
-  Body,
   Title,
+  TertiaryTitle,
 } from '../../components/styledComponents/styledComponents';
 import Loader from '../../components/Loader/Loader';
 import Banner from '../../components/Banner/Banner';
+import Cast from '../../components/Cast/Cast';
 
 const ImgContainer = styled.div`
   height: 25rem;
@@ -61,13 +60,8 @@ const ItemDetails = styled.div`
     border-radius: 100px;
   }
   .summary {
-    margin-bottom: 3rem;
-    &-title {
-      font-size: 1.3rem;
-      letter-spacing: 1px;
-      font-weight: 400;
-      margin-bottom: 1rem;
-    }
+    margin-bottom: 4rem;
+
     &-body {
       line-height: 1.8;
       font-size: 1rem;
@@ -76,17 +70,14 @@ const ItemDetails = styled.div`
   }
 `;
 
-class SingleItem extends Component {
+class SingleMovie extends Component {
   componentDidMount() {
-    this.props.fetchMovie(this.props.match.params.id);
-    console.log('movie');
+    this.props.fetchSingleMovie(this.props.match.params.id);
   }
   render() {
-    const { image, singleItem, loading } = this.props;
-    let imageUrl = '';
-    if (image.url) {
-      imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleItem.backdrop_path}`;
-    }
+    const { image, singleMovie, loading, cast } = this.props;
+    let imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleMovie.backdrop_path}`;
+
     if (loading) {
       return <Loader />;
     }
@@ -94,34 +85,37 @@ class SingleItem extends Component {
       <Wrapper sidebarOpen={this.props.sidebarOpen} style={{ padding: 0 }}>
         <ImgContainer>
           <Img src={imageUrl} />
-          <Banner />
+          <Banner
+            imdbId={singleMovie.imdb_id}
+            trailerId="id.."
+            voteAverage={singleMovie.vote_average}
+            voteCount={singleMovie.vote_count}
+          />
         </ImgContainer>
         <ItemDetails>
-          <ItemTitle>{singleItem.title || singleItem.name}</ItemTitle>
+          <ItemTitle>{singleMovie.title}</ItemTitle>
           <div className="status">
-            <span className="release_date">2019-12-18</span>
-            <span className="duration">{formTime(140)}</span>
+            <span className="release_date">{singleMovie.release_date}</span>
+            <span className="duration">{formTime(singleMovie.runtime)}</span>
           </div>
           <div className="genres">
-            <a href="/" className="genre-item">
-              Action
-            </a>
-            <a href="/" className="genre-item">
-              Biography
-            </a>
-            <a href="/" className="genre-item">
-              Drama
-            </a>
+            {singleMovie.genres
+              ? singleMovie.genres.map((genre) => {
+                  return (
+                    <a key={genre.id} href="/" className="genre-item">
+                      {genre.name}
+                    </a>
+                  );
+                })
+              : null}
           </div>
           <div className="summary">
-            <h3 className="summary-title">Plot Summary</h3>
-            <p className="summary-body">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
-              eum a voluptatibus quam porro ea. Recusandae eaque quas,
-              aspernatur vitae magnam quasi. Sit, exercitationem doloremque
-              rerum earum explicabo possimus et.
-            </p>
+            <TertiaryTitle className="summary-title">
+              Plot Summary
+            </TertiaryTitle>
+            <p className="summary-body">{singleMovie.overview}</p>
           </div>
+          <Cast cast={cast} image={image} />
         </ItemDetails>
       </Wrapper>
     );
@@ -132,16 +126,15 @@ const formTime = (time) => {
   const h = Math.floor(time / 60);
   const min = time % 60;
 
-  return `${h}h ${min}min`;
+  return `${h}h${min ? ` ${min}min` : ''}`;
 };
 
-const mapStateToProps = ({ app, api }) => ({
+const mapStateToProps = ({ app, singleMovie }) => ({
   sidebarOpen: app.sidebarOpen,
   image: app.image,
-  singleItem: api.singleItem,
-  cast: api.cast,
-  related: api.related,
-  loading: api.loading,
+  singleMovie: singleMovie.data,
+  cast: singleMovie.cast,
+  loading: singleMovie.loading,
 });
 
-export default connect(mapStateToProps, { fetchMovie })(SingleItem);
+export default connect(mapStateToProps, { fetchSingleMovie })(SingleMovie);

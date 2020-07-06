@@ -39,3 +39,10 @@ export const Title = styled.h1`
     background-color: var(--clr-info);
   }
 `;
+
+export const TertiaryTitle = styled.h3`
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 400;
+  margin-bottom: 1rem;
+`;

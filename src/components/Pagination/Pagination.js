@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 const Wrapper = styled.section`
-  padding: 3rem 0.5rem;
+  padding: 2rem 0.5rem;
   text-align: center;
 `;
 
@@ -11,12 +10,11 @@ const pageNumStyle = css`
   display: inline-block;
   padding: 0.5rem;
   margin: 0 1px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   border: 1px solid transparent;
 `;
 
-const Navlink = styled(Link)`
-  text-decoration: none;
+const PageButton = styled.button`
   color: var(--clr-primary-light);
   ${pageNumStyle}
   :hover {
@@ -30,7 +28,7 @@ const ActivePageNum = styled.span`
   border-color: var(--clr-info);
 `;
 
-const Pagination = ({ currentPage, maxBtns, totalPage, path }) => {
+const Pagination = ({ currentPage, maxBtns, totalPage, changePage }) => {
   let startPage = 1;
   let endPage = 0;
   const buttons = [];
@@ -53,16 +51,19 @@ const Pagination = ({ currentPage, maxBtns, totalPage, path }) => {
     buttons.push(
       <Button
         label={i}
+        pageNum={i}
         currentPage={currentPage}
         key={i}
-        path={`${path}/${i}`}
+        changePage={changePage}
       />
     );
   }
 
   const numOfPageButtons = buttons.length;
   if (currentPage > 3 && totalPage > numOfPageButtons) {
-    buttons.unshift(<Button label="First" key="first" path={`${path}/1`} />);
+    buttons.unshift(
+      <Button label="First" key="first" pageNum={1} changePage={changePage} />
+    );
   }
 
   if (
@@ -70,19 +71,23 @@ const Pagination = ({ currentPage, maxBtns, totalPage, path }) => {
     totalPage > numOfPageButtons
   ) {
     buttons.push(
-      <Button label="Last" key="last" path={`${path}/${totalPage}`} />
+      <Button
+        label="Last"
+        key="last"
+        pageNum={totalPage}
+        changePage={changePage}
+      />
     );
   }
-
   return <Wrapper>{buttons}</Wrapper>;
 };
 
-const Button = ({ label, currentPage, path }) => {
+const Button = ({ label, pageNum, currentPage, changePage }) => {
   if (currentPage === label) {
     return <ActivePageNum>{label}</ActivePageNum>;
   }
 
-  return <Navlink to={path}>{label}</Navlink>;
+  return <PageButton onClick={() => changePage(pageNum)}>{label}</PageButton>;
 };
 
 export default Pagination;

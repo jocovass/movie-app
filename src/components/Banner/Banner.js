@@ -58,21 +58,22 @@ const Button = styled.a`
   }
 `;
 
-const Banner = () => {
+const Banner = ({ imdbId, trailerId, voteAverage, voteCount }) => {
   return (
     <Wrapper>
       <RatingContainer>
         <FontAwesomeIcon icon={faStar} />
         <p className="rating">
-          8.2<span className="rating-range">/10</span>
+          {voteAverage}
+          <span className="rating-range">/10</span>
         </p>
-        <p className="total-ratings">150,212</p>
+        <p className="total-ratings">{voteCount}</p>
       </RatingContainer>
-      <Button href="/">
+      <Button href="/" rel="noopener noreferrer">
         <FontAwesomeIcon icon={faPlay} />
         <span>Trailer</span>
       </Button>
-      <Button to="/">
+      <Button href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
         <FontAwesomeIcon icon={faImdb} />
         <span>IMDB</span>
       </Button>

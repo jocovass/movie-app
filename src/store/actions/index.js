@@ -2,8 +2,6 @@ import axios from '../../axios';
 import * as types from './types';
 
 export const init = () => async (dispatch) => {
-  // Set the loader when start fetching
-  dispatch({ type: types.START_LOADING });
   const res = await Promise.all([
     axios.get('/configuration'),
     axios.get('/genre/movie/list'),
@@ -11,7 +9,7 @@ export const init = () => async (dispatch) => {
   ]);
 
   // Dispatch the res. if the request succeeded
-  dispatch({
+  await dispatch({
     type: types.INITIALIZE,
     payload: {
       image: {
@@ -19,6 +17,7 @@ export const init = () => async (dispatch) => {
         sizes: {
           poster_sizes: [...res[0].data.images.poster_sizes],
           backdrop_sizes: [...res[0].data.images.backdrop_sizes],
+          profile_sizes: [...res[0].data.images.profile_sizes],
         },
       },
       movieGenres: res[1].data.genres,
