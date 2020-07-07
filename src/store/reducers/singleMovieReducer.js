@@ -24,13 +24,3 @@ const singleMovieReducer = (state = INITIAL_STATE, action) => {
 };
 
 export default singleMovieReducer;
-
-// export const fetchRecommendations = (id) => async (dispatch) => {
-//     const res = await axios.get(`/movie/${id}/recommendations`)
-
-//     dispatch({type: types, payload: {
-//         movies: res[2].data.results,
-//         page: res[2].data.page,
-//         total_pages: res[2].data.total_pages,
-//     }})
-// }

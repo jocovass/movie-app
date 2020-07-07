@@ -10,6 +10,7 @@ import {
 import Loader from '../../components/Loader/Loader';
 import Banner from '../../components/Banner/Banner';
 import Cast from '../../components/Cast/Cast';
+import MovieRecom from '../MovieRecom/MovieRecom';
 
 const ImgContainer = styled.div`
   height: 25rem;
@@ -36,6 +37,7 @@ const ItemTitle = styled(Title)`
 
 const ItemDetails = styled.div`
   padding: 5rem 2rem 0;
+  margin-bottom: 4rem;
   .status {
     font-size: 1.1rem;
     color: var(--clr-primary-light);
@@ -117,6 +119,7 @@ class SingleMovie extends Component {
           </div>
           <Cast cast={cast} image={image} />
         </ItemDetails>
+        <MovieRecom />
       </Wrapper>
     );
   }

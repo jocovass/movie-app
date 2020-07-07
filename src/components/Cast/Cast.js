@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import { TertiaryTitle } from '../styledComponents/styledComponents';
+import avatar from '../../img/avatar.png';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -16,7 +17,7 @@ const SlideElement = styled(Link)`
   display: block;
   text-decoration: none;
   transition: color 0.2s ease-in-out;
-  margin: 1rem 0 2rem;
+  margin: 1rem 0 0;
 
   .image-container {
     display: block;
@@ -57,7 +58,7 @@ const Cast = ({ cast, image }) => {
 
   const checkWidth = () => {
     const { clientWidth } = containerRef.current;
-    setSlidesToShow(Math.floor(clientWidth / 70));
+    setSlidesToShow(Math.floor(clientWidth / 75));
   };
 
   const settings = {
@@ -72,26 +73,34 @@ const Cast = ({ cast, image }) => {
     slidesToScroll: 1,
     arrows: false,
   };
+
   return (
     <SlideContainer ref={containerRef}>
       <TertiaryTitle>The Cast</TertiaryTitle>
       <Slider {...settings}>
         {cast.map((el) => {
-          return (
-            <SlideElement key={el.id}>
-              <span className="image-container">
-                <img
-                  className="cast-image"
-                  src={`${image.url}${image.sizes.profile_sizes[0]}${el.profile_path}`}
-                  alt={el.name}
-                />
-              </span>
-              <span className="cast-name">{el.name}</span>
-            </SlideElement>
-          );
+          return <CastIem key={el.id} cast={el} image={image} />;
         })}
       </Slider>
     </SlideContainer>
+  );
+};
+
+const CastIem = ({ cast, image }) => {
+  let imgUrl = '';
+  if (cast.profile_path) {
+    imgUrl = `${image.url}${image.sizes.profile_sizes[0]}${cast.profile_path}`;
+  } else {
+    imgUrl = avatar;
+  }
+
+  return (
+    <SlideElement>
+      <span className="image-container">
+        <img className="cast-image" src={imgUrl} alt={cast.name} />
+      </span>
+      <span className="cast-name">{cast.name}</span>
+    </SlideElement>
   );
 };
 
