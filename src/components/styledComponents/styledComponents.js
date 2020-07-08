@@ -23,6 +23,7 @@ export const Body = styled.section`
 `;
 
 export const Title = styled.h1`
+  color: var(--clr-primary);
   font-size: 1.7rem;
   font-weight: 900;
   letter-spacing: 2px;
@@ -40,9 +41,25 @@ export const Title = styled.h1`
   }
 `;
 
+//SingleItem
 export const TertiaryTitle = styled.h3`
   font-size: 1.3rem;
   letter-spacing: 1px;
   font-weight: 400;
   margin-bottom: 1rem;
+  color: var(--clr-primary);
+`;
+
+export const ImgContainer = styled.div`
+  height: 25rem;
+  width: 100%;
+  border-radius: 0 0 40px 40px;
+  position: relative;
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 0 40px 40px;
 `;

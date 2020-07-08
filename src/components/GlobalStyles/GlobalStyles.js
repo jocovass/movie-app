@@ -13,6 +13,7 @@ const GlobalStyles = createGlobalStyle`
         --ff-sansSerif: 'Merriweather Sans', sans-serif;
         // Font-size
         --fs: 62.5%;
+        /* --fs: 80%; */
         // Font-weights
         --fw-light: 300;
         --fw-normal: 400;

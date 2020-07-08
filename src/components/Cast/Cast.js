@@ -96,7 +96,7 @@ const CastIem = ({ cast, image }) => {
   }
 
   return (
-    <SlideElement>
+    <SlideElement to={`/person/${cast.id}`}>
       <span className="image-container">
         <img className="cast-image" src={imgUrl} alt={cast.name} />
       </span>

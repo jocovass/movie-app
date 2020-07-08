@@ -8,6 +8,7 @@ import Movies from './Movies/Movies';
 import TVShows from './TVShow/TVShows';
 import SingleMovie from './SingleMovie/SingleMovie';
 import DiscoverMovies from './DiscoverMovies/DiscoverMovies';
+import Person from './Person/Person';
 
 class App extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class App extends Component {
           <Route path="/tvs/:page" component={TVShows} />
           <Route path="/movie/:id" component={SingleMovie} />
           <Route path="/discover/movie/:genreId" component={DiscoverMovies} />
+          <Route path="/person/:personId" component={Person} />
         </Switch>
       </div>
     );

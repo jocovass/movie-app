@@ -7,25 +7,13 @@ import {
   Wrapper,
   Title,
   TertiaryTitle,
+  ImgContainer,
+  Img,
 } from '../../components/styledComponents/styledComponents';
 import Loader from '../../components/Loader/Loader';
 import Banner from '../../components/Banner/Banner';
 import Cast from '../../components/Cast/Cast';
 import MovieRecom from '../MovieRecom/MovieRecom';
-
-const ImgContainer = styled.div`
-  height: 25rem;
-  width: 100%;
-  border-radius: 0 0 40px 40px;
-  position: relative;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0 0 40px 40px;
-`;
 
 const ItemTitle = styled(Title)`
   font-size: 1.5rem;
@@ -86,7 +74,7 @@ class SingleMovie extends Component {
 
   render() {
     const { image, singleMovie, loading, cast } = this.props;
-    let imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleMovie.backdrop_path}`;
+    const imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleMovie.backdrop_path}`;
 
     if (loading) {
       return <Loader />;
