@@ -89,6 +89,18 @@ class Navigation extends Component {
     this.props.toggleSidebar(!this.props.sidebarOpen);
   };
 
+  toggleMovieSubnav = () => {
+    this.setState((prevState) => ({
+      openMovie: !prevState.openMovie,
+    }));
+  };
+
+  toggleTvSubnav = () => {
+    this.setState((prevState) => ({
+      openTv: !prevState.openTv,
+    }));
+  };
+
   render() {
     const { movieGenres, tvGenres, selected } = this.props;
     const { openMovie, openTv } = this.state;
@@ -129,11 +141,7 @@ class Navigation extends Component {
             <li className="nav-group__item ">
               <Navbtn
                 className="dropdown"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    openMovie: !prevState.openMovie,
-                  }))
-                }
+                onClick={this.toggleMovieSubnav}
                 selected={openMovie}
               >
                 Movies
@@ -146,17 +154,15 @@ class Navigation extends Component {
                 isOpen={openMovie}
                 navItems={movieGenres}
                 selected={selected}
+                toggle={this.toggleMovieSubnav}
+                path="/discover/movie"
                 type="movie"
               />
             </li>
             <li className="nav-group__item">
               <Navbtn
                 className="dropdown"
-                onClick={() =>
-                  this.setState((prevState) => ({
-                    openTv: !prevState.openTv,
-                  }))
-                }
+                onClick={this.toggleTvSubnav}
                 selected={openTv}
               >
                 TV Shows
@@ -169,6 +175,8 @@ class Navigation extends Component {
                 isOpen={openTv}
                 navItems={tvGenres}
                 selected={selected}
+                toggle={this.toggleTvSubnav}
+                path="/discover/tv"
                 type="tv"
               />
             </li>

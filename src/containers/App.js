@@ -7,6 +7,7 @@ import Header from './Header/Header';
 import Movies from './Movies/Movies';
 import TVShows from './TVShow/TVShows';
 import SingleMovie from './SingleMovie/SingleMovie';
+import DiscoverMovies from './DiscoverMovies/DiscoverMovies';
 
 class App extends Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path="/movies" component={Movies} />
           <Route path="/tvs/:page" component={TVShows} />
           <Route path="/movie/:id" component={SingleMovie} />
+          <Route path="/discover/movie/:genreId" component={DiscoverMovies} />
         </Switch>
       </div>
     );

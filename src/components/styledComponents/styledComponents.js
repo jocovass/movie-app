@@ -5,7 +5,7 @@ export const Wrapper = styled.main`
   margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17em' : '0')};
   transition: margin 0.25s ease-in-out;
   min-width: 320px;
-  padding: 3.5rem 2rem 1rem;
+  padding: 3.5rem 1rem 1rem;
 `;
 
 export const Header = styled.header`
@@ -15,10 +15,10 @@ export const Header = styled.header`
 `;
 
 export const Body = styled.section`
-  padding: 5rem 2rem 0;
+  padding-top: 5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 180px));
-  grid-gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 200px));
+  grid-gap: 2rem 5rem;
   justify-content: center;
 `;
 

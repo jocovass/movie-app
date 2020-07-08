@@ -25,6 +25,13 @@ const RecomTitle = styled(Title)`
   margin-bottom: 3rem;
 `;
 
+const NotfoundMsg = styled.p`
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-align: center;
+`;
+
 class MovieRecom extends Component {
   componentDidMount() {
     const { fetchMovieRecom, id, page } = this.props;
@@ -49,6 +56,15 @@ class MovieRecom extends Component {
     } = this.props;
     let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
 
+    const moviesArr = movies.map((movie) => (
+      <Cover
+        key={movie.id}
+        item={movie}
+        url={imageUrl}
+        path={`/movie/${movie.id}`}
+      />
+    ));
+
     if (loading) {
       return <Loader />;
     }
@@ -56,19 +72,18 @@ class MovieRecom extends Component {
       <Wrapper>
         <RecomTitle>Recomandations</RecomTitle>
         <RecomBody>
-          {movies.map((movie) => (
-            <Cover
-              key={movie.id}
-              item={movie}
-              url={imageUrl}
-              path={`/movie/${movie.id}`}
-            />
-          ))}
+          {movies.length ? (
+            moviesArr
+          ) : (
+            <NotfoundMsg>
+              There is no recomandation based on this movie
+            </NotfoundMsg>
+          )}
         </RecomBody>
         <Pagination
           currentPage={page}
           maxBtns={5}
-          totalPage={total_pages}
+          totalPage={movies.length ? total_pages : 0}
           changePage={changeRecomPage}
         />
       </Wrapper>

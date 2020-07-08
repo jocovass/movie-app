@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchSingleMovie } from '../../store/actions/singleMovieActions';
@@ -76,6 +77,13 @@ class SingleMovie extends Component {
   componentDidMount() {
     this.props.fetchSingleMovie(this.props.match.params.id);
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.props.fetchSingleMovie(this.props.match.params.id);
+    }
+  }
+
   render() {
     const { image, singleMovie, loading, cast } = this.props;
     let imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleMovie.backdrop_path}`;
@@ -104,9 +112,13 @@ class SingleMovie extends Component {
             {singleMovie.genres
               ? singleMovie.genres.map((genre) => {
                   return (
-                    <a key={genre.id} href="/" className="genre-item">
+                    <Link
+                      key={genre.id}
+                      to={`/discover/movie/${genre.id}`}
+                      className="genre-item"
+                    >
                       {genre.name}
-                    </a>
+                    </Link>
                   );
                 })
               : null}

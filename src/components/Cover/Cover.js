@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import LazyLoad from 'react-lazy-load';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,7 +12,6 @@ const Figure = styled.figure`
 const ImgWrapper = styled.div`
   width: 100%;
   height: 250px;
-  background: pink;
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 `;
@@ -55,7 +55,14 @@ const Cover = ({
   return (
     <Figure>
       <ImgWrapper>
-        <Img src={`${url}/${poster_path}`} alt={title} />
+        <LazyLoad
+          width={200}
+          height={250}
+          debounce={false}
+          offsetVertical={500}
+        >
+          <Img src={`${url}/${poster_path}`} alt={title} />
+        </LazyLoad>
       </ImgWrapper>
       <Figcaption>
         <Navlink to={path}>{formatTitle(title || name, 20)}</Navlink>
@@ -68,6 +75,7 @@ const Cover = ({
   );
 };
 
+// Form the time deppending on the duration
 const formatTitle = (title, limit) => {
   if (title.length <= limit) return title;
   const words = title.split(' ');

@@ -25,7 +25,6 @@ const DropdownContainer = styled.div`
   }
 
   .arrow {
-    /* background-color: red; */
     width: 0.8rem;
     height: 0.8rem;
     position: absolute;

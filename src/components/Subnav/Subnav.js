@@ -20,12 +20,20 @@ const Nav = styled.div`
   }
 `;
 
-const Subnav = ({ isOpen, navItems, selected }) => {
+const Subnav = ({ isOpen, navItems, selected, type, path }) => {
   return (
     <Nav className="sub-nav" isOpen={isOpen} size={navItems.length}>
       <ul className="sub-nav__list">
         {navItems.map((navItem, index) => {
-          return <NavItem item={navItem} key={index} selected={selected} />;
+          return (
+            <NavItem
+              item={navItem}
+              key={index}
+              selected={selected}
+              path={path}
+              type={type}
+            />
+          );
         })}
       </ul>
     </Nav>
@@ -61,16 +69,18 @@ const Item = styled.li`
   }
 `;
 
-const NavItem = ({ item, selected, type }) => (
-  <Item
-    className="sub-nav__item"
-    selected={selected === `${type}-${item.name}` ? true : false}
-  >
-    <Link to="/" className="sub-nav__link" data-name={item.name}>
-      <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
-      {item.name}
-    </Link>
-  </Item>
-);
+const NavItem = ({ item, selected, type, path }) => {
+  return (
+    <Item
+      className="sub-nav__item"
+      selected={selected === `${type}-${item.name}` ? true : false}
+    >
+      <Link to={`${path}/${item.id}`} className="sub-nav__link">
+        <FontAwesomeIcon icon={faDotCircle} className="icon-dot" />
+        {item.name}
+      </Link>
+    </Item>
+  );
+};
 
 export default Subnav;

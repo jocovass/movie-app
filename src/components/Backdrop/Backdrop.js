@@ -8,8 +8,8 @@ const Layer = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--clr-primary);
-  opacity: 0;
+  background-color: var(--clr-secondary);
+  opacity: 0.7;
 `;
 
 const Backdrop = ({ toggleHandler }) => {
