@@ -5,7 +5,7 @@ import singleItemReducer from './singleItemReducer';
 import recReducer from './recReducer';
 import discoverReducer from './discoverReducer';
 import peopleReducer from './peopleReducer';
-// import apiReducer from './apiReducer';
+import actingReducer from './actingReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
   rec: recReducer,
   discover: discoverReducer,
   people: peopleReducer,
+  acting: actingReducer,
 });
 
 export default rootReducer;

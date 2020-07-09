@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { Body, Title } from '../styledComponents/styledComponents';
+import {
+  fetchActing,
+  changeActingPage,
+} from '../../store/actions/actingActions';
+import { Body, Title, Header } from '../styledComponents/styledComponents';
 import Loader from '../Loader/Loader';
 import Cover from '../Cover/Cover';
 import Pagination from '../Pagination/Pagination';
@@ -25,48 +29,49 @@ const NotfoundMsg = styled.p`
   text-align: center;
 `;
 
-class ReletedItems extends Component {
+class Acting extends Component {
   componentDidMount() {
-    const { fetchMovieRecom, id, page } = this.props;
-    fetchMovieRecom(id, page);
+    const { fetchActing, castId } = this.props;
+    fetchActing(1, castId);
   }
 
   componentDidUpdate(prevProps) {
-    const { id, page, fetchMovieRecom } = this.props;
+    const { castId, page, fetchActing } = this.props;
 
     if (prevProps.page !== page) {
-      fetchMovieRecom(id, page);
+      fetchActing(page, castId);
     }
   }
   render() {
     const {
       loading,
-      movies,
+      items,
       image,
       page,
       total_pages,
-      changeRecomPage,
+      changeActingPage,
     } = this.props;
-    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
-
-    const moviesArr = movies.map((movie) => (
-      <Cover
-        key={movie.id}
-        item={movie}
-        url={imageUrl}
-        path={`/movie/${movie.id}`}
-      />
-    ));
 
     if (loading) {
       return <Loader />;
     }
+    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    const itemsArr = items.map((item) => (
+      <Cover
+        key={item.id}
+        item={item}
+        url={imageUrl}
+        path={`/movie/${item.id}`}
+      />
+    ));
     return (
       <Wrapper>
-        <RecomTitle>Recomandations</RecomTitle>
+        <Header>
+          <RecomTitle>Recomandations</RecomTitle>
+        </Header>
         <RecomBody>
-          {movies.length ? (
-            moviesArr
+          {items.length ? (
+            itemsArr
           ) : (
             <NotfoundMsg>
               There is no recomandation based on this movie
@@ -76,12 +81,22 @@ class ReletedItems extends Component {
         <Pagination
           currentPage={page}
           maxBtns={5}
-          totalPage={movies.length ? total_pages : 0}
-          changePage={changeRecomPage}
+          totalPage={items.length ? total_pages : 0}
+          changePage={changeActingPage}
         />
       </Wrapper>
     );
   }
 }
 
-export default ReletedItems;
+const mapStateToProps = ({ acting, app }) => ({
+  loading: acting.loading,
+  items: acting.items,
+  page: acting.page,
+  total_pages: acting.total_pages,
+  image: app.image,
+});
+
+export default connect(mapStateToProps, { fetchActing, changeActingPage })(
+  Acting
+);

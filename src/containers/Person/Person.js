@@ -8,6 +8,7 @@ import {
   TertiaryTitle,
 } from '../../components/styledComponents/styledComponents';
 import Loader from '../../components/Loader/Loader';
+import Acting from '../../components/Acting/Acting';
 
 const ImgContainer = styled.div`
   margin: 0 auto;
@@ -76,6 +77,7 @@ class Person extends Component {
           <TertiaryTitle>Biography</TertiaryTitle>
           <div className="biography">{people.biography}</div>
         </PersonDetails>
+        <Acting castId={people.id} />
       </Wrapper>
     );
   }
