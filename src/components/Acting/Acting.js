@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {
-  fetchMovieRecom,
-  changeRecomPage,
-} from '../../store/actions/movieRecomActions';
-import {
-  Body,
-  Title,
-} from '../../components/styledComponents/styledComponents';
-import Loader from '../../components/Loader/Loader';
-import Cover from '../../components/Cover/Cover';
-import Pagination from '../../components/Pagination/Pagination';
+import { Body, Title } from '../styledComponents/styledComponents';
+import Loader from '../Loader/Loader';
+import Cover from '../Cover/Cover';
+import Pagination from '../Pagination/Pagination';
 
 const Wrapper = styled.section`
   padding: 0 2rem;
@@ -32,7 +25,7 @@ const NotfoundMsg = styled.p`
   text-align: center;
 `;
 
-class MovieRecom extends Component {
+class ReletedItems extends Component {
   componentDidMount() {
     const { fetchMovieRecom, id, page } = this.props;
     fetchMovieRecom(id, page);
@@ -91,15 +84,4 @@ class MovieRecom extends Component {
   }
 }
 
-const mapStateToProps = ({ movieRecom, singleMovie, app }) => ({
-  loading: movieRecom.loading,
-  movies: movieRecom.movies,
-  page: movieRecom.page,
-  total_pages: movieRecom.total_pages,
-  id: singleMovie.data.id,
-  image: app.image,
-});
-
-export default connect(mapStateToProps, { fetchMovieRecom, changeRecomPage })(
-  MovieRecom
-);
+export default ReletedItems;

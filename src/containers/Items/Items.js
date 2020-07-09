@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMovies, changePage } from '../../store/actions/moviesActions';
+import { fetchItems, changeItemsPage } from '../../store/actions/itemsActions';
 import Loader from '../../components/Loader/Loader';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Cover from '../../components/Cover/Cover';
@@ -17,22 +17,27 @@ const options = [
   { name: 'Top Rated', sortBy: 'top_rated' },
 ];
 
-class Movies extends Component {
+class Items extends Component {
   state = {
     selectedOption: options[0],
   };
 
   async componentDidMount() {
-    this.props.fetchMovies(this.state.selectedOption.sortBy);
+    const department = this.props.location.pathname.split('/')[1];
+    this.props.fetchItems(this.state.selectedOption.sortBy, 1, department);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page, newPage } = this.props;
+    const { page, newPage, location } = this.props;
+    const department = location.pathname.split('/')[1];
     const { sortBy } = this.state.selectedOption;
-    if (prevState.selectedOption.sortBy !== sortBy) {
-      this.props.fetchMovies(sortBy, 1);
+    if (
+      prevState.selectedOption.sortBy !== sortBy ||
+      prevProps.location.pathname !== location.pathname
+    ) {
+      this.props.fetchItems(sortBy, 1, department);
     } else if (prevProps.page !== page && newPage) {
-      this.props.fetchMovies(sortBy, page);
+      this.props.fetchItems(sortBy, page, department);
     }
   }
 
@@ -42,14 +47,16 @@ class Movies extends Component {
 
   render() {
     const {
-      movies,
+      items,
       loading,
       image,
       total_pages,
       page,
-      changePage,
+      changeItemsPage,
+      location,
     } = this.props;
     let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    const department = location.pathname.split('/')[1];
 
     if (loading) {
       return <Loader />;
@@ -57,7 +64,7 @@ class Movies extends Component {
     return (
       <Wrapper sidebarOpen={this.props.sidebarOpen}>
         <Header>
-          <Title>Movies</Title>
+          <Title>{`${department}s`}</Title>
           <Dropdown
             options={options}
             selectedOption={this.state.selectedOption}
@@ -65,12 +72,12 @@ class Movies extends Component {
           />
         </Header>
         <Body>
-          {movies.map((movie) => (
+          {items.map((item) => (
             <Cover
-              key={movie.id}
-              item={movie}
+              key={item.id}
+              item={item}
               url={imageUrl}
-              path={`/movie/${movie.id}`}
+              path={`/${department}/${item.id}`}
             />
           ))}
         </Body>
@@ -78,22 +85,22 @@ class Movies extends Component {
           currentPage={page}
           maxBtns={5}
           totalPage={total_pages}
-          changePage={changePage}
+          changePage={changeItemsPage}
         />
       </Wrapper>
     );
   }
 }
 
-const mapStateToProps = ({ movies, app }) => ({
+const mapStateToProps = ({ items, app }) => ({
   sidebarOpen: app.sidebarOpen,
   image: app.image,
   selected: app.selected,
-  page: movies.page,
-  newPage: movies.newPage,
-  total_pages: movies.total_pages,
-  movies: movies.items,
-  loading: movies.loading,
+  page: items.page,
+  newPage: items.newPage,
+  total_pages: items.total_pages,
+  items: items.items,
+  loading: items.loading,
 });
 
-export default connect(mapStateToProps, { fetchMovies, changePage })(Movies);
+export default connect(mapStateToProps, { fetchItems, changeItemsPage })(Items);

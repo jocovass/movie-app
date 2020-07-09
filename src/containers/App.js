@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { init } from '../store/actions/index';
 import Loader from '../components/Loader/Loader';
 import Header from './Header/Header';
-import Movies from './Movies/Movies';
-import TVShows from './TVShow/TVShows';
-import SingleMovie from './SingleMovie/SingleMovie';
-import DiscoverMovies from './DiscoverMovies/DiscoverMovies';
+import Items from './Items/Items';
+import SingleItem from './SingleItem/SingleItem';
+import Discover from './Discover/Discover';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -26,10 +25,12 @@ class App extends Component {
         <Header />
         <Switch>
           <Redirect from="/" exact to="/movies" />
-          <Route path="/movies" component={Movies} />
-          <Route path="/tvs/:page" component={TVShows} />
-          <Route path="/movie/:id" component={SingleMovie} />
-          <Route path="/discover/movie/:genreId" component={DiscoverMovies} />
+          <Route path="/movie" exact component={Items} />
+          <Route path="/tv" exact component={Items} />
+          <Route path="/movie/:id" component={SingleItem} />
+          <Route path="/tv/:id" component={SingleItem} />
+          <Route path="/discover/movie/:genreId" component={Discover} />
+          <Route path="/discover/tv/:genreId" component={Discover} />
           <Route path="/person/:personId" component={Person} />
         </Switch>
       </div>

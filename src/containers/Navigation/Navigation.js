@@ -85,8 +85,10 @@ class Navigation extends Component {
     openTv: false,
   };
 
-  handleNavItemClick = () => {
-    this.props.toggleSidebar(!this.props.sidebarOpen);
+  handleNavItemClick = (e) => {
+    if (e.target.closest('a')) {
+      this.props.toggleSidebar(!this.props.sidebarOpen);
+    }
   };
 
   toggleMovieSubnav = () => {
@@ -106,27 +108,22 @@ class Navigation extends Component {
     const { openMovie, openTv } = this.state;
 
     return (
-      <Nav>
+      <Nav onClick={this.handleNavItemClick}>
         {/* Top navigation */}
         <div className="nav-group types">
           <h3 className="nav-group__title">Discover</h3>
           <ul className="nav-group__list">
             <li className="nav-group__item">
               <Navlink
-                to="/movies"
-                selected={selected === 'movies' ? true : false}
-                onClick={this.handleNavItemClick}
+                to="/movie"
+                selected={selected === 'movie' ? true : false}
               >
                 <FontAwesomeIcon icon={faFilm} className="icon-type" />
                 Movies
               </Navlink>
             </li>
             <li className="nav-group__item">
-              <Navlink
-                to="/tvs/1"
-                selected={selected === 'tvs' ? true : false}
-                onClick={this.handleNavItemClick}
-              >
+              <Navlink to="/tv" selected={selected === 'tv' ? true : false}>
                 <FontAwesomeIcon icon={faTv} className="icon-type" />
                 TV Shows
               </Navlink>

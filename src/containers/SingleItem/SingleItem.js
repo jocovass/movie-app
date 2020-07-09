@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { fetchSingleMovie } from '../../store/actions/singleMovieActions';
+import { fetchSingleItem } from '../../store/actions/singleItemActions';
 import {
   Wrapper,
   Title,
@@ -13,7 +13,7 @@ import {
 import Loader from '../../components/Loader/Loader';
 import Banner from '../../components/Banner/Banner';
 import Cast from '../../components/Cast/Cast';
-import MovieRecom from '../MovieRecom/MovieRecom';
+import Recomandations from '../Recomandations/Recomandations';
 
 const ItemTitle = styled(Title)`
   font-size: 1.5rem;
@@ -61,20 +61,23 @@ const ItemDetails = styled.div`
   }
 `;
 
-class SingleMovie extends Component {
+class SingleItem extends Component {
   componentDidMount() {
-    this.props.fetchSingleMovie(this.props.match.params.id);
+    const department = this.props.location.pathname.split('/')[1];
+    this.props.fetchSingleItem(this.props.match.params.id, department);
   }
 
   componentDidUpdate(prevProps) {
+    const department = this.props.location.pathname.split('/')[1];
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.fetchSingleMovie(this.props.match.params.id);
+      this.props.fetchSingleItem(this.props.match.params.id, department);
     }
   }
 
   render() {
-    const { image, singleMovie, loading, cast } = this.props;
-    const imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleMovie.backdrop_path}`;
+    const { image, singleItem, loading, cast } = this.props;
+    const imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleItem.backdrop_path}`;
+    const department = this.props.location.pathname.split('/')[1];
 
     if (loading) {
       return <Loader />;
@@ -84,25 +87,25 @@ class SingleMovie extends Component {
         <ImgContainer>
           <Img src={imageUrl} />
           <Banner
-            imdbId={singleMovie.imdb_id}
+            imdbId={singleItem.imdb_id}
             trailerId="id.."
-            voteAverage={singleMovie.vote_average}
-            voteCount={singleMovie.vote_count}
+            voteAverage={singleItem.vote_average}
+            voteCount={singleItem.vote_count}
           />
         </ImgContainer>
         <ItemDetails>
-          <ItemTitle>{singleMovie.title}</ItemTitle>
+          <ItemTitle>{singleItem.title}</ItemTitle>
           <div className="status">
-            <span className="release_date">{singleMovie.release_date}</span>
-            <span className="duration">{formTime(singleMovie.runtime)}</span>
+            <span className="release_date">{singleItem.release_date}</span>
+            <span className="duration">{formTime(singleItem.runtime)}</span>
           </div>
           <div className="genres">
-            {singleMovie.genres
-              ? singleMovie.genres.map((genre) => {
+            {singleItem.genres
+              ? singleItem.genres.map((genre) => {
                   return (
                     <Link
                       key={genre.id}
-                      to={`/discover/movie/${genre.id}`}
+                      to={`/discover/${department}/${genre.id}`}
                       className="genre-item"
                     >
                       {genre.name}
@@ -115,11 +118,11 @@ class SingleMovie extends Component {
             <TertiaryTitle className="summary-title">
               Plot Summary
             </TertiaryTitle>
-            <p className="summary-body">{singleMovie.overview}</p>
+            <p className="summary-body">{singleItem.overview}</p>
           </div>
           <Cast cast={cast} image={image} />
         </ItemDetails>
-        <MovieRecom />
+        <Recomandations itemId={singleItem.id} department={department} />
       </Wrapper>
     );
   }
@@ -132,12 +135,12 @@ const formTime = (time) => {
   return `${h}h${min ? ` ${min}min` : ''}`;
 };
 
-const mapStateToProps = ({ app, singleMovie }) => ({
+const mapStateToProps = ({ app, singleItem }) => ({
   sidebarOpen: app.sidebarOpen,
   image: app.image,
-  singleMovie: singleMovie.data,
-  cast: singleMovie.cast,
-  loading: singleMovie.loading,
+  singleItem: singleItem.data,
+  cast: singleItem.cast,
+  loading: singleItem.loading,
 });
 
-export default connect(mapStateToProps, { fetchSingleMovie })(SingleMovie);
+export default connect(mapStateToProps, { fetchSingleItem })(SingleItem);

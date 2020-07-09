@@ -59,7 +59,7 @@ const Cover = ({
           width={200}
           height={250}
           debounce={false}
-          offsetVertical={500}
+          offsetVertical={100}
         >
           <Img src={`${url}/${poster_path}`} alt={title} />
         </LazyLoad>

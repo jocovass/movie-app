@@ -23,6 +23,7 @@ export const Body = styled.section`
 `;
 
 export const Title = styled.h1`
+  text-transform: capitalize;
   color: var(--clr-primary);
   font-size: 1.7rem;
   font-weight: 900;

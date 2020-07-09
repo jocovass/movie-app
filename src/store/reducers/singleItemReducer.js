@@ -8,11 +8,11 @@ const INITIAL_STATE = {
 
 const singleMovieReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.FETCH_SINGLEMOVIE_START:
+    case types.FETCH_SINGLEITEM_START:
       return { ...state, loading: true };
-    case types.FETCH_SINGLEMOVIE_FINISH:
+    case types.FETCH_SINGLEITEM_FINISH:
       return { ...state, loading: false };
-    case types.FETCH_SINGLEMOVIE:
+    case types.FETCH_SINGLEITEM:
       return {
         ...state,
         data: action.payload.data,

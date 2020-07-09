@@ -8,26 +8,26 @@ const INITIAL_STATE = {
   total_pages: 1,
 };
 
-const movieSReducer = (state = INITIAL_STATE, action) => {
+const itemsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.FETCH_MOVIES_START:
+    case types.FETCH_ITEMS_START:
       return { ...state, loading: true };
-    case types.FETCH_MOVIES_FINISH:
+    case types.FETCH_ITEMS_FINISH:
       return { ...state, loading: false };
-    case types.CHANGE_MOVIES_PAGE:
+    case types.CHANGE_ITEMS_PAGE:
       return { ...state, page: action.payload, newPage: true };
-    case types.FETCH_MOVIES:
+    case types.FETCH_ITEMS:
       return {
         ...state,
         newPage: false,
         page: action.payload.page,
         total_pages: action.payload.total_pages,
         selected: action.payload.selected,
-        items: action.payload.movies,
+        items: action.payload.items,
       };
     default:
       return state;
   }
 };
 
-export default movieSReducer;
+export default itemsReducer;

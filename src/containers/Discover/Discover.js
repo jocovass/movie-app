@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  discoverMovies,
-  changeDiscoverMoviesPage,
-} from '../../store/actions/discoverMoviesAction';
+  discover,
+  changeDiscoverPage,
+} from '../../store/actions/discoverActions';
 import {
   Wrapper,
   Header,
@@ -14,7 +14,6 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import Loader from '../../components/Loader/Loader';
 import Cover from '../../components/Cover/Cover';
 import Pagination from '../../components/Pagination/Pagination';
-import axios from '../../axios';
 
 const options = [
   { name: 'Most Popular', sortBy: 'popularity.desc' },
@@ -22,30 +21,29 @@ const options = [
   { name: 'Released', sortBy: 'release_date.desc' },
 ];
 
-class DiscoverMovies extends Component {
+class Discover extends Component {
   state = {
     selectedOption: options[0],
   };
 
   componentDidMount() {
-    this.props.discoverMovies(this.props.match.params.genreId, 1);
-    // axios
-    //   .get('/discover/movie', {
-    //     params: {
-    //       with_cast: 27972,
-    //     },
-    //   })
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
+    const { sortBy } = this.state.selectedOption;
+    const department = this.props.location.pathname.split('/')[2];
+    this.props.discover(this.props.match.params.genreId, 1, sortBy, department);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { page, newPage, match } = this.props;
+    const { page, newPage, match, location } = this.props;
     const { sortBy } = this.state.selectedOption;
-    if (prevState.selectedOption.sortBy !== sortBy) {
-      this.props.discoverMovies(match.params.genreId, 1, sortBy);
+    const department = location.pathname.split('/')[2];
+
+    if (
+      prevState.selectedOption.sortBy !== sortBy ||
+      prevProps.location.pathname !== location.pathname
+    ) {
+      this.props.discover(match.params.genreId, 1, sortBy, department);
     } else if (prevProps.page !== page && newPage) {
-      this.props.discoverMovies(match.params.genreId, page, sortBy);
+      this.props.discover(match.params.genreId, page, sortBy, department);
     }
   }
 
@@ -56,16 +54,17 @@ class DiscoverMovies extends Component {
   render() {
     const {
       sidebarOpen,
-      movies,
+      items,
       loading,
       image,
       selected,
       page,
       total_pages,
-      changeDiscoverMoviesPage,
+      changeDiscoverPage,
+      location,
     } = this.props;
     const imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
-    const [, genre] = selected.split('-');
+    const department = location.pathname.split('/')[2];
     if (loading) {
       return <Loader />;
     }
@@ -73,7 +72,7 @@ class DiscoverMovies extends Component {
     return (
       <Wrapper sidebarOpen={sidebarOpen}>
         <Header>
-          <Title>{genre}</Title>
+          <Title>{extractTitle(selected)}</Title>
           <Dropdown
             options={options}
             selectedOption={this.state.selectedOption}
@@ -81,12 +80,12 @@ class DiscoverMovies extends Component {
           />
         </Header>
         <Body>
-          {movies.map((movie) => (
+          {items.map((item) => (
             <Cover
-              key={movie.id}
-              item={movie}
+              key={item.id}
+              item={item}
               url={imageUrl}
-              path={`/movie/${movie.id}`}
+              path={`/${department}/${item.id}`}
             />
           ))}
         </Body>
@@ -94,25 +93,30 @@ class DiscoverMovies extends Component {
           currentPage={page}
           maxBtns={5}
           totalPage={total_pages}
-          changePage={changeDiscoverMoviesPage}
+          changePage={changeDiscoverPage}
         />
       </Wrapper>
     );
   }
 }
 
-const mapStateToProp = ({ app, discoverMovies }) => ({
-  loading: discoverMovies.loading,
-  movies: discoverMovies.movies,
-  newPage: discoverMovies.newPage,
-  page: discoverMovies.page,
-  total_pages: discoverMovies.total_pages,
+const extractTitle = (selected) => {
+  const index = selected.indexOf('-');
+  return selected.slice(index + 1);
+};
+
+const mapStateToProp = ({ app, discover }) => ({
+  loading: discover.loading,
+  items: discover.items,
+  newPage: discover.newPage,
+  page: discover.page,
+  total_pages: discover.total_pages,
   sidebarOpen: app.sidebarOpen,
   selected: app.selected,
   image: app.image,
 });
 
 export default connect(mapStateToProp, {
-  discoverMovies,
-  changeDiscoverMoviesPage,
-})(DiscoverMovies);
+  discover,
+  changeDiscoverPage,
+})(Discover);
