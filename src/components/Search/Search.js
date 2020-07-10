@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import history from '../../history';
 
 const SearchContainer = styled.div`
   position: relative;
@@ -77,7 +78,9 @@ const Search = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (searchText.trim() !== '') {
-      console.log(searchText);
+      setIsOpen(false);
+      history.push(`/search/${searchText}`);
+      setSearchText('');
     }
   };
 

@@ -7,6 +7,7 @@ import Header from './Header/Header';
 import Items from './Items/Items';
 import SingleItem from './SingleItem/SingleItem';
 import Discover from './Discover/Discover';
+import SearchResult from './SearchResult/SearchResult';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -24,11 +25,12 @@ class App extends Component {
       <div>
         <Header />
         <Switch>
-          <Redirect from="/" exact to="/movies" />
+          <Redirect from="/" exact to="/movie" />
           <Route path="/movie" exact component={Items} />
           <Route path="/tv" exact component={Items} />
           <Route path="/movie/:id" component={SingleItem} />
           <Route path="/tv/:id" component={SingleItem} />
+          <Route path="/search/:query" component={SearchResult} />
           <Route path="/discover/movie/:genreId" component={Discover} />
           <Route path="/discover/tv/:genreId" component={Discover} />
           <Route path="/person/:personId" component={Person} />
