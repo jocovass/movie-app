@@ -39,6 +39,11 @@ class Items extends Component {
     } else if (prevProps.page !== page && newPage) {
       this.props.fetchItems(sortBy, page, department);
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   setSelectedOptions = (el) => {
@@ -55,8 +60,8 @@ class Items extends Component {
       changeItemsPage,
       location,
     } = this.props;
-    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
     const department = location.pathname.split('/')[1];
+    let imgUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
 
     if (loading) {
       return <Loader />;
@@ -76,7 +81,7 @@ class Items extends Component {
             <Cover
               key={item.id}
               item={item}
-              url={imageUrl}
+              url={imgUrl}
               path={`/${department}/${item.id}`}
             />
           ))}

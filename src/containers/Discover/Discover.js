@@ -45,6 +45,11 @@ class Discover extends Component {
     } else if (prevProps.page !== page && newPage) {
       this.props.discover(match.params.genreId, page, sortBy, department);
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   setSelectedOption = (el) => {

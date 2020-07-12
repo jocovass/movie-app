@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { fetchRec, changeRecPage } from '../../store/actions/recActions';
@@ -12,6 +12,7 @@ import Pagination from '../../components/Pagination/Pagination';
 
 const Wrapper = styled.section`
   padding: 0 2rem;
+  position: relative;
 `;
 
 const RecomBody = styled(Body)`
@@ -30,6 +31,11 @@ const NotfoundMsg = styled.p`
 `;
 
 class Recomandations extends Component {
+  constructor(props) {
+    super(props);
+    this.compRef = createRef();
+  }
+
   componentDidMount() {
     const { fetchRec, itemId, page, department } = this.props;
     fetchRec(itemId, page, department);
@@ -40,6 +46,12 @@ class Recomandations extends Component {
 
     if (prevProps.page !== page) {
       fetchRec(itemId, page, department);
+      const pos = this.compRef.current.offsetTop - 100;
+      window.scrollTo({
+        top: pos,
+        left: 0,
+        behavior: 'smooth',
+      });
     }
   }
   render() {
@@ -53,7 +65,6 @@ class Recomandations extends Component {
       department,
     } = this.props;
     let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
-
     const itemsArr = items.map((item) => (
       <Cover
         key={item.id}
@@ -62,22 +73,24 @@ class Recomandations extends Component {
         path={`/${department}/${item.id}`}
       />
     ));
-
+    let content = (
+      <RecomBody>
+        {items.length ? (
+          itemsArr
+        ) : (
+          <NotfoundMsg>
+            There is no recomandation based on this movie
+          </NotfoundMsg>
+        )}
+      </RecomBody>
+    );
     if (loading) {
-      return <Loader />;
+      content = <Loader />;
     }
     return (
-      <Wrapper>
+      <Wrapper ref={this.compRef} className="engem">
         <RecomTitle>Recomandations</RecomTitle>
-        <RecomBody>
-          {items.length ? (
-            itemsArr
-          ) : (
-            <NotfoundMsg>
-              There is no recomandation based on this movie
-            </NotfoundMsg>
-          )}
-        </RecomBody>
+        {content}
         <Pagination
           currentPage={page}
           maxBtns={5}
@@ -97,6 +110,7 @@ const mapStateToProps = ({ rec, app }) => ({
   image: app.image,
 });
 
-export default connect(mapStateToProps, { fetchRec, changeRecPage })(
-  Recomandations
-);
+export default connect(mapStateToProps, {
+  fetchRec,
+  changeRecPage,
+})(Recomandations);

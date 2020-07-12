@@ -14,6 +14,7 @@ import Loader from '../../components/Loader/Loader';
 import Banner from '../../components/Banner/Banner';
 import Cast from '../../components/Cast/Cast';
 import Recomandations from '../Recomandations/Recomandations';
+import blank_canvas from '../../img/blank_canvas.svg';
 
 const ItemTitle = styled(Title)`
   font-size: 1.5rem;
@@ -76,16 +77,19 @@ class SingleItem extends Component {
 
   render() {
     const { image, singleItem, loading, cast } = this.props;
-    const imageUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleItem.backdrop_path}`;
     const department = this.props.location.pathname.split('/')[1];
-
+    let imgUrl = blank_canvas;
+    if (singleItem.backdrop_path) {
+      imgUrl = `${image.url}${image.sizes.backdrop_sizes[1]}${singleItem.backdrop_path}`;
+    }
     if (loading) {
       return <Loader />;
     }
+
     return (
       <Wrapper sidebarOpen={this.props.sidebarOpen} style={{ padding: 0 }}>
         <ImgContainer>
-          <Img src={imageUrl} />
+          <Img src={imgUrl} />
           <Banner
             imdbId={singleItem.imdb_id}
             trailerId="id.."

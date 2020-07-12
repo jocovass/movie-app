@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { init } from '../store/actions/index';
 import Loader from '../components/Loader/Loader';
 import Header from './Header/Header';
 import Items from './Items/Items';
-import SingleItem from './SingleItem/SingleItem';
-import Discover from './Discover/Discover';
-import SearchResult from './SearchResult/SearchResult';
-import Person from './Person/Person';
+const SingleItem = lazy(() => import('./SingleItem/SingleItem'));
+const SearchResult = lazy(() => import('./SearchResult/SearchResult'));
+const Person = lazy(() => import('./Person/Person'));
+const Discover = lazy(() => import('./Discover/Discover'));
 
 class App extends Component {
   componentDidMount() {
@@ -24,17 +24,19 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          <Redirect from="/" exact to="/movie" />
-          <Route path="/movie" exact component={Items} />
-          <Route path="/tv" exact component={Items} />
-          <Route path="/movie/:id" component={SingleItem} />
-          <Route path="/tv/:id" component={SingleItem} />
-          <Route path="/search/:query" component={SearchResult} />
-          <Route path="/discover/movie/:genreId" component={Discover} />
-          <Route path="/discover/tv/:genreId" component={Discover} />
-          <Route path="/person/:personId" component={Person} />
-        </Switch>
+        <Suspense fallback={<Loader />}>
+          <Switch>
+            <Redirect from="/" exact to="/movie" />
+            <Route path="/movie" exact component={Items} />
+            <Route path="/tv" exact component={Items} />
+            <Route path="/movie/:id" component={SingleItem} />
+            <Route path="/tv/:id" component={SingleItem} />
+            <Route path="/search/:query" component={SearchResult} />
+            <Route path="/discover/movie/:genreId" component={Discover} />
+            <Route path="/discover/tv/:genreId" component={Discover} />
+            <Route path="/person/:personId" component={Person} />
+          </Switch>
+        </Suspense>
       </div>
     );
   }

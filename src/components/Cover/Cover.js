@@ -1,22 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import LazyLoad from 'react-lazy-load';
+import LazyLoad from 'react-lazyload';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import blank_canvas from '../../img/blank_canvas.svg';
+import Loader from '../Loader/Loader';
 
-const Figure = styled.figure`
-  position: relative;
-`;
+const Figure = styled.figure``;
 
 const ImgWrapper = styled.div`
   width: 100%;
   height: 250px;
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
 `;
 
 const Img = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -52,16 +56,16 @@ const Cover = ({
   path,
   item: { poster_path, title, name, vote_average },
 }) => {
+  let imgUrl = blank_canvas;
+  if (poster_path) {
+    imgUrl = `${url}/${poster_path}`;
+  }
+
   return (
     <Figure>
       <ImgWrapper>
-        <LazyLoad
-          width={200}
-          height={250}
-          debounce={false}
-          offsetVertical={100}
-        >
-          <Img src={`${url}/${poster_path}`} alt={title} />
+        <LazyLoad height={250} placeholder={<Loader />} offset={100}>
+          <Img src={imgUrl} alt={title} />
         </LazyLoad>
       </ImgWrapper>
       <Figcaption>

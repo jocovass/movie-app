@@ -29,6 +29,11 @@ class SearchResults extends Component {
     } else if (prevProps.page !== page) {
       this.props.fetchSearch(page, query);
     }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   render() {

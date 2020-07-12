@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import {
@@ -30,6 +30,10 @@ const NotfoundMsg = styled.p`
 `;
 
 class Acting extends Component {
+  constructor(props) {
+    super(props);
+    this.compRef = createRef();
+  }
   componentDidMount() {
     const { fetchActing, castId } = this.props;
     fetchActing(1, castId);
@@ -40,6 +44,12 @@ class Acting extends Component {
 
     if (prevProps.page !== page) {
       fetchActing(page, castId);
+      const pos = this.compRef.current.offsetTop - 100;
+      window.scrollTo({
+        top: pos,
+        left: 0,
+        behavior: 'smooth',
+      });
     }
   }
   render() {
@@ -51,10 +61,6 @@ class Acting extends Component {
       total_pages,
       changeActingPage,
     } = this.props;
-
-    if (loading) {
-      return <Loader />;
-    }
     let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
     const itemsArr = items.map((item) => (
       <Cover
@@ -64,20 +70,27 @@ class Acting extends Component {
         path={`/movie/${item.id}`}
       />
     ));
+    let content = (
+      <RecomBody>
+        {items.length ? (
+          itemsArr
+        ) : (
+          <NotfoundMsg>
+            There is no recomandation based on this movie
+          </NotfoundMsg>
+        )}
+      </RecomBody>
+    );
+    if (loading) {
+      content = <Loader />;
+    }
+
     return (
-      <Wrapper>
+      <Wrapper ref={this.compRef}>
         <Header>
           <RecomTitle>Recomandations</RecomTitle>
         </Header>
-        <RecomBody>
-          {items.length ? (
-            itemsArr
-          ) : (
-            <NotfoundMsg>
-              There is no recomandation based on this movie
-            </NotfoundMsg>
-          )}
-        </RecomBody>
+        {content}
         <Pagination
           currentPage={page}
           maxBtns={5}
