@@ -41,3 +41,6 @@ export const SEARCH_START = 'SEARCH_START';
 export const SEARCH_FINISH = 'SEARCH_FINISH';
 export const SEARCH = 'SEARCH';
 export const CHANGE_SEARCH_PAGE = 'CHANGE_SEARCH_PAGE';
+//error
+export const CATCH_ERROR = 'CATCH_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';

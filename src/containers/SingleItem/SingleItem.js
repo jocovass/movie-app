@@ -38,10 +38,11 @@ const ItemDetails = styled.div`
     margin-right: 2rem;
   }
   .genres {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
   .genre-item {
     margin-right: 1rem;
+    margin-bottom: 1rem;
     display: inline-block;
     padding: 0.5rem 1rem;
     text-decoration: none;

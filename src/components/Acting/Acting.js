@@ -11,6 +11,8 @@ import Cover from '../Cover/Cover';
 import Pagination from '../Pagination/Pagination';
 
 const Wrapper = styled.section`
+  position: relative;
+  min-height: 20rem;
   padding: 0 2rem;
 `;
 

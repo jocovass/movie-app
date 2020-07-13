@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   fetchSearch,
@@ -12,7 +13,21 @@ import {
   Header,
   Body,
   Title,
+  ErrorImg,
+  btnStyle,
 } from '../../components/styledComponents/styledComponents';
+import notFound from '../../img/page-not-found.svg';
+import styled from 'styled-components';
+
+const NoSerchResult = styled.div`
+  text-align: center;
+  margin-top: 5rem;
+`;
+
+const Button = styled(Link)`
+  ${btnStyle}
+  margin-top: 4rem;
+`;
 
 class SearchResults extends Component {
   async componentDidMount() {
@@ -56,14 +71,21 @@ class SearchResults extends Component {
           <Title>Search Results</Title>
         </Header>
         <Body>
-          {items.map((item) => (
-            <Cover
-              key={item.id}
-              item={item}
-              url={imageUrl}
-              path={`/movie/${item.id}`}
-            />
-          ))}
+          {items.length ? (
+            items.map((item) => (
+              <Cover
+                key={item.id}
+                item={item}
+                url={imageUrl}
+                path={`/movie/${item.id}`}
+              />
+            ))
+          ) : (
+            <NoSerchResult>
+              <ErrorImg src={notFound} alt="not found" />
+              <Button to="/">Go Home</Button>
+            </NoSerchResult>
+          )}
         </Body>
         <Pagination
           currentPage={page}

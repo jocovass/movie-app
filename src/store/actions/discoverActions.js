@@ -21,26 +21,29 @@ export const discover = (
   } else {
     selectedGenre = app.tvGenres.find((el) => el.id === Number(genre));
   }
-
   dispatch({ type: types.DISCOVER_START });
-  const res = await axios.get(`/discover/${department}`, {
-    params: {
-      page,
-      sort_by: sortBy,
-      with_genres: genre,
-    },
-  });
-  dispatch({
-    type: types.SET_SELECTED,
-    payload: `${department}-${selectedGenre.name}`,
-  });
-  dispatch({
-    type: types.DISCOVER,
-    payload: {
-      items: res.data.results,
-      page: res.data.page,
-      total_pages: res.data.total_pages,
-    },
-  });
+  try {
+    const res = await axios.get(`/discover/${department}`, {
+      params: {
+        page,
+        sort_by: sortBy,
+        with_genres: genre,
+      },
+    });
+    dispatch({
+      type: types.SET_SELECTED,
+      payload: `${department}-${selectedGenre.name}`,
+    });
+    dispatch({
+      type: types.DISCOVER,
+      payload: {
+        items: res.data.results,
+        page: res.data.page,
+        total_pages: res.data.total_pages,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
   dispatch({ type: types.DISCOVER_FINISH });
 };

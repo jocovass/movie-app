@@ -9,6 +9,8 @@ const SingleItem = lazy(() => import('./SingleItem/SingleItem'));
 const SearchResult = lazy(() => import('./SearchResult/SearchResult'));
 const Person = lazy(() => import('./Person/Person'));
 const Discover = lazy(() => import('./Discover/Discover'));
+const ErrorPage = lazy(() => import('./Error/Error'));
+const NoMatch = lazy(() => import('../components/NoMatch/NoMatch'));
 
 class App extends Component {
   componentDidMount() {
@@ -35,6 +37,8 @@ class App extends Component {
             <Route path="/discover/movie/:genreId" component={Discover} />
             <Route path="/discover/tv/:genreId" component={Discover} />
             <Route path="/person/:personId" component={Person} />
+            <Route path="/error" component={ErrorPage} />
+            <Route component={NoMatch} />
           </Switch>
         </Suspense>
       </div>

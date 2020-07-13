@@ -10,20 +10,24 @@ export const changeActingPage = (page) => ({
 
 export const fetchActing = (page = 1, castId) => async (dispatch) => {
   dispatch({ type: types.FETCH_ACTING_START });
-  const res = await axios.get(`/discover/movie`, {
-    params: {
-      sort_by: 'popularity.desc',
-      with_cast: castId,
-      page,
-    },
-  });
-  dispatch({
-    type: types.FETCH_ACTING,
-    payload: {
-      items: res.data.results,
-      page: res.data.page,
-      total_pages: res.data.total_pages,
-    },
-  });
+  try {
+    const res = await axios.get(`/discover/movie`, {
+      params: {
+        sort_by: 'popularity.desc',
+        with_cast: castId,
+        page,
+      },
+    });
+    dispatch({
+      type: types.FETCH_ACTING,
+      payload: {
+        items: res.data.results,
+        page: res.data.page,
+        total_pages: res.data.total_pages,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
   dispatch({ type: types.FETCH_ACTING_FINIHS });
 };

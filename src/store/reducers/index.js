@@ -7,6 +7,7 @@ import discoverReducer from './discoverReducer';
 import peopleReducer from './peopleReducer';
 import actingReducer from './actingReducer';
 import searchReducer from './searchReducer';
+import errorReducer from './errorReducer';
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   people: peopleReducer,
   acting: actingReducer,
   search: searchReducer,
+  error: errorReducer,
 });
 
 export default rootReducer;

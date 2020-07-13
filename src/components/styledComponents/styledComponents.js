@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.main`
   margin-top: 6rem;
@@ -63,4 +63,46 @@ export const Img = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 0 0 40px 40px;
+`;
+
+// Error and NoMatch components
+export const ErrorWrapper = styled(Wrapper)`
+  text-align: center;
+`;
+
+export const ErrorTitle = styled.h1`
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--clr-info);
+  margin-bottom: 5rem;
+`;
+
+export const ErrorImg = styled.img`
+  display: inline-block;
+  width: 80%;
+  max-width: 40rem;
+  height: auto;
+`;
+
+export const ErrorText = styled.p`
+  margin: 3rem 0 4rem;
+  color: var(--clr-primary);
+  font-size: 1.1rem;
+`;
+
+export const btnStyle = css`
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: var(--clr-primary-light);
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid var(--clr-primary-light);
+  border-radius: 50px;
+  transition: 0.15s all ease-in-out;
+
+  &:hover {
+    color: var(--clr-primary);
+    border-color: var(--clr-info);
+  }
 `;

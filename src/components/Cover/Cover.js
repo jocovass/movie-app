@@ -10,7 +10,7 @@ import Loader from '../Loader/Loader';
 const Figure = styled.figure``;
 
 const ImgWrapper = styled.div`
-  width: 100%;
+  width: 200px;
   height: 250px;
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
