@@ -92,7 +92,7 @@ class SingleItem extends Component {
           <Img src={imgUrl} />
           <Banner
             imdbId={singleItem.imdb_id}
-            trailerId="id.."
+            trailerId={singleItem.videos.results[0].key}
             voteAverage={singleItem.vote_average}
             voteCount={singleItem.vote_count}
           />

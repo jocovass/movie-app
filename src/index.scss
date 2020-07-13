@@ -1,15 +1,1 @@
-@import '__custom';
 
-body {
-  margin: 0;
-  font-family: $font-family-base;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: rgba(35, 35, 35, 0.8);
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  color: #dcdcdc66;
-}

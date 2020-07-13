@@ -1,8 +1,10 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import ModalVideo from 'react-modal-video';
 import { faStar, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { faImdb } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import '../../../node_modules/react-modal-video/scss/modal-video.scss';
 
 const Wrapper = styled.div`
   position: absolute;
@@ -39,9 +41,8 @@ const RatingContainer = styled.div`
   }
 `;
 
-const Button = styled.a`
+const buttonStyle = css`
   font-size: 1rem;
-  text-decoration: none;
   color: var(--clr-primary-light);
   text-align: center;
   transition: color 0.2s ease-in-out;
@@ -58,9 +59,25 @@ const Button = styled.a`
   }
 `;
 
+const Link = styled.a`
+  ${buttonStyle}
+  text-decoration: none;
+`;
+
+const Button = styled.button`
+  ${buttonStyle}
+`;
+
 const Banner = ({ imdbId, trailerId, voteAverage, voteCount }) => {
+  const [open, setOpen] = useState(false);
   return (
     <Wrapper>
+      <ModalVideo
+        channel="youtube"
+        isOpen={open}
+        videoId={trailerId}
+        onClose={() => setOpen(false)}
+      />
       <RatingContainer>
         <FontAwesomeIcon icon={faStar} />
         <p className="rating">
@@ -69,14 +86,14 @@ const Banner = ({ imdbId, trailerId, voteAverage, voteCount }) => {
         </p>
         <p className="total-ratings">{voteCount}</p>
       </RatingContainer>
-      <Button href="/" rel="noopener noreferrer">
+      <Button onClick={() => setOpen(true)}>
         <FontAwesomeIcon icon={faPlay} />
         <span>Trailer</span>
       </Button>
-      <Button href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
+      <Link href={`https://www.imdb.com/title/${imdbId}`} target="_blank">
         <FontAwesomeIcon icon={faImdb} />
         <span>IMDB</span>
-      </Button>
+      </Link>
     </Wrapper>
   );
 };

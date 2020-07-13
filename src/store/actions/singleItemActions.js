@@ -4,7 +4,11 @@ import axios from '../../axios';
 export const fetchSingleItem = (id, department) => async (dispatch) => {
   dispatch({ type: types.FETCH_SINGLEITEM_START });
   const res = await Promise.all([
-    axios.get(`/${department}/${id}`),
+    axios.get(`/${department}/${id}`, {
+      params: {
+        append_to_response: 'videos',
+      },
+    }),
     axios.get(`/${department}/${id}/credits`),
   ]);
   dispatch({
