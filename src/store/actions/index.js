@@ -1,5 +1,6 @@
 import axios from '../../axios';
 import * as types from './types';
+import history from '../../history';
 
 export const init = () => async (dispatch) => {
   try {
@@ -26,7 +27,14 @@ export const init = () => async (dispatch) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
 
   // Clear the loader when HTTP is done
