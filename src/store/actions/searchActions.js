@@ -1,5 +1,6 @@
 import * as types from './types';
 import axios from '../../axios';
+import history from '../../history';
 
 export const changeSearchPage = (page) => ({
   type: types.CHANGE_SEARCH_PAGE,
@@ -27,7 +28,14 @@ export const fetchSearch = (page = 1, query) => async (dispatch) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
   dispatch({ type: types.SEARCH_FINISH });
 };

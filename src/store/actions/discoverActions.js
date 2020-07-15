@@ -1,5 +1,6 @@
 import axios from '../../axios';
 import * as types from './types';
+import history from '../../history';
 
 export const changeDiscoverPage = (page) => ({
   type: types.CHANGE_DISCOVER_PAGE,
@@ -43,7 +44,14 @@ export const discover = (
       },
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
   dispatch({ type: types.DISCOVER_FINISH });
 };

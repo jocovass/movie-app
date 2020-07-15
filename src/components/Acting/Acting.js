@@ -13,11 +13,6 @@ import Pagination from '../Pagination/Pagination';
 const Wrapper = styled.section`
   position: relative;
   min-height: 20rem;
-  padding: 0 2rem;
-`;
-
-const RecomBody = styled(Body)`
-  padding: 2rem;
 `;
 
 const RecomTitle = styled(Title)`
@@ -63,7 +58,7 @@ class Acting extends Component {
       total_pages,
       changeActingPage,
     } = this.props;
-    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    let imageUrl = `${image.url}/${image.sizes.poster_sizes[1]}`;
     const itemsArr = items.map((item) => (
       <Cover
         key={item.id}
@@ -73,7 +68,7 @@ class Acting extends Component {
       />
     ));
     let content = (
-      <RecomBody>
+      <Body>
         {items.length ? (
           itemsArr
         ) : (
@@ -81,7 +76,7 @@ class Acting extends Component {
             There is no recomandation based on this movie
           </NotfoundMsg>
         )}
-      </RecomBody>
+      </Body>
     );
     if (loading) {
       content = <Loader />;
@@ -90,7 +85,7 @@ class Acting extends Component {
     return (
       <Wrapper ref={this.compRef}>
         <Header>
-          <RecomTitle>Recomandations</RecomTitle>
+          <RecomTitle>Acting</RecomTitle>
         </Header>
         {content}
         <Pagination

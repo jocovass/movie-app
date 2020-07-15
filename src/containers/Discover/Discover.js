@@ -68,7 +68,7 @@ class Discover extends Component {
       changeDiscoverPage,
       location,
     } = this.props;
-    const imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    const imageUrl = `${image.url}/${image.sizes.poster_sizes[1]}`;
     const department = location.pathname.split('/')[2];
     if (loading) {
       return <Loader />;

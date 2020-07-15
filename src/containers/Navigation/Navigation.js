@@ -22,8 +22,8 @@ const Nav = styled.nav`
       letter-spacing: 1px;
       font-weight: 300;
       text-transform: uppercase;
-      margin-bottom: 1rem;
-      padding-left: 4rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     &__list {
@@ -32,7 +32,7 @@ const Nav = styled.nav`
 
     &__item {
       &:not(:last-child) {
-        margin-bottom: 0.2rem;
+        margin-bottom: 0.3rem;
       }
     }
   }
@@ -63,6 +63,9 @@ const Navitem = css`
   .icon-arrow {
     margin-left: 1rem;
     font-size: 1.4rem;
+  }
+  @media only screen and (min-width: 62.5em) {
+    padding: 0.6rem 0 0.6rem 2.5rem;
   }
 `;
 

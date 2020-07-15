@@ -1,5 +1,6 @@
 import * as types from './types';
 import axios from '../../axios';
+import history from '../../history';
 
 export const changeRecPage = (page) => ({
   type: types.CHANGE_REC_PAGE,
@@ -25,7 +26,14 @@ export const fetchRec = (id, page = 1, department) => async (dispatch) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
   dispatch({ type: types.FETCH_REC_FINISH });
 };

@@ -2,10 +2,16 @@ import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.main`
   margin-top: 6rem;
-  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17em' : '0')};
+  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17rem' : '0')};
   transition: margin 0.25s ease-in-out;
   min-width: 320px;
-  padding: 3.5rem 1rem 1rem;
+  padding: 3.5rem 2rem 1rem;
+
+  @media only screen and (min-width: 62.5em) {
+    margin-left: 20rem;
+    margin-top: 0;
+    padding: 3.5rem 5rem 1rem;
+  }
 `;
 
 export const Header = styled.header`
@@ -17,9 +23,10 @@ export const Header = styled.header`
 export const Body = styled.section`
   padding-top: 5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min-content, 200px));
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   grid-gap: 2rem 5rem;
   justify-content: center;
+  justify-items: center;
 `;
 
 export const Title = styled.h1`
@@ -40,6 +47,14 @@ export const Title = styled.h1`
     border-radius: 20px;
     background-color: var(--clr-info);
   }
+
+  @media only screen and (min-width: 37.5em) {
+    font-size: 2rem;
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    font-size: 2.2rem;
+  }
 `;
 
 //SingleItem
@@ -49,20 +64,46 @@ export const TertiaryTitle = styled.h3`
   font-weight: 400;
   margin-bottom: 1rem;
   color: var(--clr-primary);
+
+  @media only screen and (min-width: 37.5em) {
+    font-size: 1.5rem;
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    font-size: 1.65rem;
+  }
 `;
 
 export const ImgContainer = styled.div`
-  height: 25rem;
-  width: 100%;
   border-radius: 0 0 40px 40px;
   position: relative;
+  min-height: 25rem;
+  height: 60vw;
+  width: 100%;
+
+  @media only screen and (min-width: 40em) {
+    border-radius: 40px;
+    margin: 0 auto 4rem;
+    max-height: 40rem;
+    width: 30rem;
+  }
+
+  @media only screen and (min-width: 81.25em) {
+    margin-right: 3rem;
+  }
 `;
 
 export const Img = styled.img`
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: cover;
   border-radius: 0 0 40px 40px;
+
+  @media only screen and (min-width: 40em) {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 40px;
+    width: 30rem;
+  }
 `;
 
 // Error and NoMatch components

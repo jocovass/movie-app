@@ -79,6 +79,11 @@ const Pagination = ({ currentPage, maxBtns, totalPage, changePage }) => {
       />
     );
   }
+
+  if (totalPage === 1) {
+    return null;
+  }
+
   return <Wrapper>{buttons}</Wrapper>;
 };
 

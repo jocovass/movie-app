@@ -1,5 +1,6 @@
 import axios from '../../axios';
 import * as types from './types';
+import history from '../../history';
 
 export const changeActingPage = (page) => ({
   type: types.CHANGE_ACTING_PAGE,
@@ -27,7 +28,14 @@ export const fetchActing = (page = 1, castId) => async (dispatch) => {
       },
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
   dispatch({ type: types.FETCH_ACTING_FINIHS });
 };

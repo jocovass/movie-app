@@ -60,7 +60,7 @@ class SearchResults extends Component {
       page,
       changeSearchPage,
     } = this.props;
-    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    let imageUrl = `${image.url}/${image.sizes.poster_sizes[1]}`;
 
     if (loading) {
       return <Loader />;

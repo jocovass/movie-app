@@ -9,7 +9,7 @@ const SearchContainer = styled.div`
   align-self: center;
   overflow: hidden;
   cursor: pointer;
-  width: ${(props) => (props.isOpen ? '17rem' : '3.1rem')};
+  width: ${(props) => (props.isOpen ? '19rem' : '3.1rem')};
   height: 3.1rem;
   outline: none;
   border-radius: 100px;
@@ -17,6 +17,7 @@ const SearchContainer = styled.div`
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
   transition: border 0.1s ease-in-out,
     width 0.35s cubic-bezier(0.6, -0.62, 0.84, 1.51);
+  margin-left: auto;
 
   &:hover {
     border-color: var(--clr-info);

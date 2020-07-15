@@ -61,7 +61,7 @@ class Items extends Component {
       location,
     } = this.props;
     const department = location.pathname.split('/')[1];
-    let imgUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    let imgUrl = `${image.url}${image.sizes.poster_sizes[1]}`;
 
     if (loading) {
       return <Loader />;

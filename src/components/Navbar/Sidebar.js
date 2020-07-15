@@ -18,6 +18,11 @@ const Wrapper = styled.div`
   transform: ${(props) =>
     props.isOpen ? 'translateX(0)' : 'translateX(-130%)'};
   transition: transform 0.25s ease-in-out;
+
+  @media only screen and (min-width: 62.5em) {
+    transform: translateX(0);
+    width: 20rem;
+  }
 `;
 
 const Sidebar = ({ isOpen }) => {

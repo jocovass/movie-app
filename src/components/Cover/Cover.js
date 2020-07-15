@@ -7,14 +7,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import blank_canvas from '../../img/blank_canvas.svg';
 import Loader from '../Loader/Loader';
 
-const Figure = styled.figure``;
-
 const ImgWrapper = styled.div`
-  width: 200px;
-  height: 250px;
+  width: 100%;
+  max-width: 20rem;
+  min-width: 18rem;
+  margin: 0 auto;
+  height: 25rem;
   border-radius: 20px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   position: relative;
+
+  @media only screen and (min-width: 62.5em) {
+    max-width: 21rem;
+    height: 28rem;
+  }
 `;
 
 const Img = styled.img`
@@ -24,6 +30,10 @@ const Img = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 20px;
+`;
+
+const Figure = styled.figure`
+  width: 100%;
 `;
 
 const Figcaption = styled.figcaption`
@@ -58,7 +68,7 @@ const Cover = ({
 }) => {
   let imgUrl = blank_canvas;
   if (poster_path) {
-    imgUrl = `${url}/${poster_path}`;
+    imgUrl = `${url}${poster_path}`;
   }
 
   return (

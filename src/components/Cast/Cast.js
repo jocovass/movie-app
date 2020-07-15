@@ -9,9 +9,17 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const SlideContainer = styled.div`
-  width: 100%;
+  width: 90vw;
   max-width: 700px;
   margin: 0 auto;
+
+  @media only screen and (min-width: 40em) {
+    width: 70vw;
+  }
+
+  @media only screen and (min-width: 81.5em) {
+    width: 40vw;
+  }
 `;
 
 const SlideElement = styled(Link)`
@@ -59,7 +67,11 @@ const Cast = ({ cast, image }) => {
 
   const checkWidth = () => {
     const { clientWidth } = containerRef.current;
-    setSlidesToShow(Math.floor(clientWidth / 75));
+    let items = Math.floor(clientWidth / 80);
+    if (items > cast.length) {
+      items = cast.length;
+    }
+    setSlidesToShow(items);
   };
 
   const settings = {

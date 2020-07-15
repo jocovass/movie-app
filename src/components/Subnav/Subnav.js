@@ -12,11 +12,9 @@ const Nav = styled.div`
   box-shadow: inset 0px -0.5px 5px rgba(0, 0, 0, 0.05),
     inset 0 0.5px 5px rgba(0, 0, 0, 0.1);
 
-  .sub-nav {
-    &__list {
-      list-style-type: none;
-      padding: 1rem 0;
-    }
+  .sub-nav__list {
+    list-style-type: none;
+    padding: 1rem 0;
   }
 `;
 
@@ -66,6 +64,12 @@ const Item = styled.li`
   .icon-dot {
     margin-right: 0.6rem;
     font-size: 0.8rem;
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    .sub-nav__link {
+      padding: 0.5rem 0 0.5rem 3.5rem;
+    }
   }
 `;
 

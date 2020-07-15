@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
   right: 0;
   z-index: 50;
   background-color: var(--clr-secondary);
-  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17em' : '0')};
+  margin-left: ${({ sidebarOpen }) => (sidebarOpen ? '17rem' : '0')};
   transition: margin 0.25s ease-in-out;
   height: 6rem;
   min-width: 320px;
@@ -38,6 +38,14 @@ const HeaderWrapper = styled.header`
 
   .slide-exit-done {
     transform: translateX(-100%);
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    justify-content: initial;
+    position: relative;
+    margin-left: 20rem;
+    padding: 2rem 5rem 0;
+    box-shadow: none;
   }
 `;
 

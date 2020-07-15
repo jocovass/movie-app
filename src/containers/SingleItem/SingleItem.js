@@ -16,6 +16,31 @@ import Cast from '../../components/Cast/Cast';
 import Recomandations from '../Recomandations/Recomandations';
 import blank_canvas from '../../img/blank_canvas.svg';
 
+const ItemWrap = styled(Wrapper)`
+  padding: 0;
+  @media only screen and (min-width: 40em) {
+    padding: 2rem 2rem 0;
+  }
+`;
+
+const SingleItemContainer = styled.div`
+  @media only screen and (min-width: 40em) {
+    margin: 3rem auto 4rem;
+    max-width: 700px;
+  }
+
+  @media only screen and (min-width: 62.5em) {
+    margin-top: 0;
+  }
+
+  @media only screen and (min-width: 81.25em) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+  }
+`;
+
 const ItemTitle = styled(Title)`
   font-size: 1.5rem;
   line-height: 1.4;
@@ -26,6 +51,7 @@ const ItemTitle = styled(Title)`
 `;
 
 const ItemDetails = styled.div`
+  width: 100%;
   padding: 5rem 2rem 0;
   margin-bottom: 4rem;
   .status {
@@ -51,6 +77,11 @@ const ItemDetails = styled.div`
     font-weight: 300;
     border: 1px solid var(--clr-primary-light);
     border-radius: 100px;
+    transition: color 0.15s ease-in-out;
+
+    &:hover {
+      border-color: var(--clr-info);
+    }
   }
   .summary {
     margin-bottom: 4rem;
@@ -59,6 +90,15 @@ const ItemDetails = styled.div`
       line-height: 1.8;
       font-size: 1rem;
       color: var(--clr-primary-light);
+    }
+  }
+
+  @media only screen and (min-width: 37.5em) {
+    padding: 2rem 2rem 0;
+    flex-basis: 200px;
+
+    .summary-body {
+      font-size: 1.1rem;
     }
   }
 `;
@@ -88,52 +128,60 @@ class SingleItem extends Component {
     }
 
     return (
-      <Wrapper sidebarOpen={this.props.sidebarOpen} style={{ padding: 0 }}>
-        <ImgContainer>
-          <Img src={imgUrl} />
-          <Banner
-            imdbId={singleItem.imdb_id}
-            trailerId={singleItem.videos.results[0].key}
-            voteAverage={singleItem.vote_average}
-            voteCount={singleItem.vote_count}
-          />
-        </ImgContainer>
-        <ItemDetails>
-          <ItemTitle>{singleItem.title}</ItemTitle>
-          <div className="status">
-            <span className="release_date">{singleItem.release_date}</span>
-            <span className="duration">{formTime(singleItem.runtime)}</span>
-          </div>
-          <div className="genres">
-            {singleItem.genres
-              ? singleItem.genres.map((genre) => {
-                  return (
-                    <Link
-                      key={genre.id}
-                      to={`/discover/${department}/${genre.id}`}
-                      className="genre-item"
-                    >
-                      {genre.name}
-                    </Link>
-                  );
-                })
-              : null}
-          </div>
-          <div className="summary">
-            <TertiaryTitle className="summary-title">
-              Plot Summary
-            </TertiaryTitle>
-            <p className="summary-body">{singleItem.overview}</p>
-          </div>
-          <Cast cast={cast} image={image} />
-        </ItemDetails>
+      <ItemWrap sidebarOpen={this.props.sidebarOpen}>
+        <SingleItemContainer>
+          <ImgContainer>
+            <Img src={imgUrl} />
+            <Banner
+              imdbId={singleItem.imdb_id}
+              trailerId={singleItem.videos.results[0]}
+              voteAverage={singleItem.vote_average}
+              voteCount={singleItem.vote_count}
+            />
+          </ImgContainer>
+          <ItemDetails>
+            <ItemTitle>{singleItem.title || singleItem.name}</ItemTitle>
+            <div className="status">
+              <span className="release_date">
+                {singleItem.release_date || singleItem.first_air_date}
+              </span>
+              <span className="duration">
+                {formTime(singleItem.runtime || 0)}
+              </span>
+            </div>
+            <div className="genres">
+              {singleItem.genres
+                ? singleItem.genres.map((genre) => {
+                    return (
+                      <Link
+                        key={genre.id}
+                        to={`/discover/${department}/${genre.id}`}
+                        className="genre-item"
+                      >
+                        {genre.name}
+                      </Link>
+                    );
+                  })
+                : null}
+            </div>
+            <div className="summary">
+              <TertiaryTitle className="summary-title">
+                Plot Summary
+              </TertiaryTitle>
+              <p className="summary-body">{singleItem.overview}</p>
+            </div>
+            <Cast cast={cast} image={image} />
+          </ItemDetails>
+        </SingleItemContainer>
         <Recomandations itemId={singleItem.id} department={department} />
-      </Wrapper>
+      </ItemWrap>
     );
   }
 }
 
 const formTime = (time) => {
+  if (time === 0) return '';
+
   const h = Math.floor(time / 60);
   const min = time % 60;
 

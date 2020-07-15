@@ -10,6 +10,10 @@ const Layer = styled.div`
   height: 100vh;
   background-color: var(--clr-secondary);
   opacity: 0.7;
+
+  @media only screen and (min-width: 62.5em) {
+    display: none;
+  }
 `;
 
 const Backdrop = ({ toggleHandler }) => {

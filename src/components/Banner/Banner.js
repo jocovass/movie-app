@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   bottom: -2.5rem;
   right: 0;
   width: 90%;
+  max-width: 400px;
   padding: 1.2rem;
   background-color: var(--clr-secondary);
   box-shadow: 0px 0px 15px 10px rgba(0, 0, 0, 0.2);
@@ -19,6 +20,11 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  @media only screen and (min-width: 37.5em) {
+    border-radius: 100px;
+    justify-content: space-evenly;
+  }
 `;
 
 const RatingContainer = styled.div`
@@ -38,6 +44,10 @@ const RatingContainer = styled.div`
     font-size: 0.9rem;
     font-weight: 300;
     color: var(--clr-primary-light);
+  }
+
+  @media only screen and (min-width: 37.5em) {
+    margin-left: 0;
   }
 `;
 
@@ -75,7 +85,7 @@ const Banner = ({ imdbId, trailerId, voteAverage, voteCount }) => {
       <ModalVideo
         channel="youtube"
         isOpen={open}
-        videoId={trailerId}
+        videoId={trailerId ? trailerId.key : 0}
         onClose={() => setOpen(false)}
       />
       <RatingContainer>

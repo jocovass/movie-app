@@ -19,6 +19,10 @@ const Wrapper = styled.div`
     border-color: var(--clr-info);
     outline: none;
   }
+
+  @media only screen and (min-width: 62.5em) {
+    display: none;
+  }
 `;
 
 const Hamburger = styled.div`

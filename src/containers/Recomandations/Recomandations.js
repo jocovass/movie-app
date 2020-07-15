@@ -11,12 +11,9 @@ import Cover from '../../components/Cover/Cover';
 import Pagination from '../../components/Pagination/Pagination';
 
 const Wrapper = styled.section`
-  padding: 0 2rem;
+  min-height: 20rem;
   position: relative;
-`;
-
-const RecomBody = styled(Body)`
-  padding: 2rem;
+  padding: 0 2rem;
 `;
 
 const RecomTitle = styled(Title)`
@@ -64,7 +61,7 @@ class Recomandations extends Component {
       changeRecPage,
       department,
     } = this.props;
-    let imageUrl = `${image.url}/${image.sizes.poster_sizes[0]}`;
+    let imageUrl = `${image.url}/${image.sizes.poster_sizes[1]}`;
     const itemsArr = items.map((item) => (
       <Cover
         key={item.id}
@@ -74,7 +71,7 @@ class Recomandations extends Component {
       />
     ));
     let content = (
-      <RecomBody>
+      <Body>
         {items.length ? (
           itemsArr
         ) : (
@@ -82,13 +79,13 @@ class Recomandations extends Component {
             There is no recomandation based on this movie
           </NotfoundMsg>
         )}
-      </RecomBody>
+      </Body>
     );
     if (loading) {
       content = <Loader />;
     }
     return (
-      <Wrapper ref={this.compRef} className="engem">
+      <Wrapper ref={this.compRef}>
         <RecomTitle>Recomandations</RecomTitle>
         {content}
         <Pagination

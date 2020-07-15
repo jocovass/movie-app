@@ -1,5 +1,6 @@
 import * as types from './types';
 import axios from '../../axios';
+import history from '../../history';
 
 export const fetchSingleItem = (id, department) => async (dispatch) => {
   dispatch({ type: types.FETCH_SINGLEITEM_START });
@@ -21,7 +22,14 @@ export const fetchSingleItem = (id, department) => async (dispatch) => {
     });
     dispatch({ type: types.SET_SELECTED, payload: '' });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: types.CATCH_ERROR,
+      payload: {
+        message: err.response.data.status_message,
+        code: err.response.status,
+      },
+    });
+    history.push('/error');
   }
   dispatch({ type: types.FETCH_SINGLEITEM_FINISH });
 };

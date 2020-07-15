@@ -11,9 +11,6 @@ const GlobalStyles = createGlobalStyle`
         --clr-info: #f4ac06;
         // Font-Family
         --ff-sansSerif: 'Merriweather Sans', sans-serif;
-        // Font-size
-        --fs: 62.5%;
-        /* --fs: 80%; */
         // Font-weights
         --fw-light: 300;
         --fw-normal: 400;
@@ -28,8 +25,16 @@ const GlobalStyles = createGlobalStyle`
 
     html {
         font-family: var(--ff-sansSerif);
-        font-size: var(--fs);
+        font-size: 62.5%;;
         font-weight: var(--fw-normal);
+
+        @media only screen and (min-width: 37.5em) {
+            font-size: 68.75%;
+        }
+
+        @media only screen and (min-width: 62.5em) {
+            font-size: 71%;
+        }
     }
 
     body {
