@@ -23,6 +23,10 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
   @media only screen and (min-width: 62.5em) {
     transform: translateX(0);
     width: 20rem;

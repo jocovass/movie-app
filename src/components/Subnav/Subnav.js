@@ -7,7 +7,7 @@ import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
 const Nav = styled.div`
   overflow: hidden;
   background-color: #282828;
-  height: ${(props) => (props.isOpen ? `calc(2.7rem * ${props.size})` : '0px')};
+  height: ${(props) => (props.isOpen ? `calc(2.8rem * ${props.size})` : '0px')};
   transition: height 0.3s ease-in-out;
   box-shadow: inset 0px -0.5px 5px rgba(0, 0, 0, 0.05),
     inset 0 0.5px 5px rgba(0, 0, 0, 0.1);
