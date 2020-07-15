@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Logo from '../Logo/Logo';
 import Navigation from '../../containers/Navigation/Navigation';
+import Footer from '../Footer/Footer';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -19,6 +20,9 @@ const Wrapper = styled.div`
     props.isOpen ? 'translateX(0)' : 'translateX(-130%)'};
   transition: transform 0.25s ease-in-out;
 
+  display: flex;
+  flex-direction: column;
+
   @media only screen and (min-width: 62.5em) {
     transform: translateX(0);
     width: 20rem;
@@ -30,6 +34,7 @@ const Sidebar = ({ isOpen }) => {
     <Wrapper isOpen={isOpen}>
       <Logo />
       <Navigation />
+      <Footer />
     </Wrapper>
   );
 };
